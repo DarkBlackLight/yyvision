@@ -1,0 +1,22 @@
+class PortraitSearch < ApplicationRecord
+  include IfaceConcern
+
+  belongs_to :portrait
+  belongs_to :admin
+  has_many :portrait_search_results, dependent: :destroy
+
+  validates :source_type, presence: true
+
+  after_create :setup_portrait_search_results
+
+  def setup_portrait_search_results
+    results = iface_faces_search([self.portrait], self.source_type)
+    results[0].each do |result|
+      PortraitSearchResult.create(portrait_search_id: self.id,
+                                  target_id: result["target_id"],
+                                  target_confidence: result["target_confidence"]
+      )
+    end
+  end
+
+end

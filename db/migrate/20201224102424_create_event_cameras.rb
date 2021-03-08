@@ -1,0 +1,26 @@
+class CreateEventCameras < ActiveRecord::Migration[6.1]
+  def change
+    create_table :event_cameras do |t|
+      t.integer :event_id
+      t.integer :camera_id
+
+      t.boolean :enabled, default: true
+      t.float :confidence, default: 0.6
+      t.integer :tolerance, default: 10
+      t.integer :interval, default: 10
+
+      t.string :box_a, default: '0.0,0.0,1.0,1.0'
+      t.string :box_b
+      t.string :box_c
+      t.string :box_d
+
+      t.string :line_a
+      t.string :line_b
+
+      t.timestamps
+    end
+
+    add_index :event_cameras, :event_id
+    add_index :event_cameras, :camera_id
+  end
+end
