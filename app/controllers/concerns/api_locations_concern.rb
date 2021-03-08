@@ -1,4 +1,4 @@
-module FaceApiLocationsConcern
+module ApiLocationsConcern
   extend ActiveSupport::Concern
   included do
     private

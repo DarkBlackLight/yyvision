@@ -1,5 +1,5 @@
 class Admin::EventCamerasController < Admin::ResourcesController
-  include FaceAdminEventCamerasConcern
+  include AdminEventCamerasConcern
 
   def edit
     render 'admin/event_cameras/edit', layout: false

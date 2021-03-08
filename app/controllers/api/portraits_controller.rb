@@ -1,3 +1,3 @@
 class Api::PortraitsController < Api::ResourcesController
-  include FaceApiPortraitsConcern
+  include ApiPortraitsConcern
 end

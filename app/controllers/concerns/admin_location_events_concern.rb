@@ -1,4 +1,4 @@
-module FaceAdminLocationEventsConcern
+module AdminLocationEventsConcern
   extend ActiveSupport::Concern
   included do
     private

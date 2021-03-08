@@ -1,3 +1,3 @@
 class Api::EnginesController < Api::ResourcesController
-  include FaceApiEnginesConcern
+  include ApiEnginesConcern
 end

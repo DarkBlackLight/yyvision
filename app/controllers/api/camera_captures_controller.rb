@@ -1,3 +1,3 @@
 class Api::CameraCapturesController < Api::ResourcesController
-  include FaceApiCameraCapturesConcern
+  include ApiCameraCapturesConcern
 end

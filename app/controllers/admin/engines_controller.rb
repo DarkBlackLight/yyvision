@@ -1,4 +1,4 @@
 class Admin::EnginesController < Admin::ResourcesController
-  include FaceAdminEnginesConcern
+  include AdminEnginesConcern
 end
 

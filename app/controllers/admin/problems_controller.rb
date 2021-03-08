@@ -1,4 +1,4 @@
 class Admin::ProblemsController < Admin::ResourcesController
-  include FaceAdminProblemsConcern
+  include AdminProblemsConcern
 end
 

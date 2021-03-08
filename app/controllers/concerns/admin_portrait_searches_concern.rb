@@ -1,4 +1,4 @@
-module FaceAdminPortraitSearchesConcern
+module AdminPortraitSearchesConcern
   extend ActiveSupport::Concern
   included do
     private

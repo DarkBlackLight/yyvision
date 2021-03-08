@@ -1,10 +1,10 @@
-module FaceAdminUploadsConcern
+module AdminBanksConcern
   extend ActiveSupport::Concern
   included do
     private
 
     def resource_params
-      params.require(:upload).permit(:admin_id, :img)
+      params.require(:bank).permit(:name, :parent_id, :index)
     end
   end
 end

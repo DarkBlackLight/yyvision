@@ -1,4 +1,4 @@
 class Admin::BanksController < Admin::ResourcesController
-  include FaceAdminBanksConcern
+  include AdminBanksConcern
 end
 

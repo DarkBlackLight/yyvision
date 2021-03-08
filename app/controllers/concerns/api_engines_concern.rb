@@ -1,4 +1,4 @@
-module FaceApiEnginesConcern
+module ApiEnginesConcern
   extend ActiveSupport::Concern
   included do
 

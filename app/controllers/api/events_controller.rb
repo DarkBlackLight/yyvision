@@ -1,3 +1,3 @@
 class Api::EventsController < Api::ResourcesController
-  include FaceApiEventsConcern
+  include ApiEventsConcern
 end

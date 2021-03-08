@@ -1,4 +1,4 @@
-module FaceAdminCamerasConcern
+module AdminCamerasConcern
   extend ActiveSupport::Concern
   included do
 

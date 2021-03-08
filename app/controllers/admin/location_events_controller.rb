@@ -1,4 +1,4 @@
 class Admin::LocationEventsController < Admin::ResourcesController
-  include FaceAdminLocationEventsConcern
+  include AdminLocationEventsConcern
 end
 

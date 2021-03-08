@@ -1,4 +1,4 @@
 class Admin::UploadsController < Admin::ResourcesController
-  include FaceAdminUploadsConcern
+  include AdminUploadsConcern
 end
 

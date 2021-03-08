@@ -1,4 +1,4 @@
-module FaceApiEventsConcern
+module ApiEventsConcern
   extend ActiveSupport::Concern
   included do
     private

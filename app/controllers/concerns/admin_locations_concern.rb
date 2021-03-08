@@ -1,4 +1,4 @@
-module FaceAdminLocationsConcern
+module AdminLocationsConcern
   extend ActiveSupport::Concern
   included do
 

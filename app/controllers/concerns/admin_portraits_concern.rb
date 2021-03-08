@@ -1,4 +1,4 @@
-module FaceAdminPortraitsConcern
+module AdminPortraitsConcern
   extend ActiveSupport::Concern
   included do
     include IfaceConcern

@@ -1,4 +1,4 @@
-module FaceApiCameraCapturesConcern
+module ApiCameraCapturesConcern
   extend ActiveSupport::Concern
   included do
 

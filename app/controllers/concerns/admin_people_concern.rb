@@ -1,4 +1,4 @@
-module FaceAdminPeopleConcern
+module AdminPeopleConcern
   extend ActiveSupport::Concern
   included do
     private

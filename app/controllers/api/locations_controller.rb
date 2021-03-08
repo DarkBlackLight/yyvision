@@ -1,3 +1,3 @@
 class Api::LocationsController < Api::ResourcesController
-  include FaceApiLocationsConcern
+  include ApiLocationsConcern
 end

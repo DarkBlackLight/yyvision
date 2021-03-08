@@ -1,4 +1,4 @@
-module FaceApiCamerasConcern
+module ApiCamerasConcern
   extend ActiveSupport::Concern
   included do
     private

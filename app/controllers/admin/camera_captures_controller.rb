@@ -1,4 +1,4 @@
 class Admin::CameraCapturesController < Admin::ResourcesController
-  include FaceAdminCameraCapturesConcern
+  include AdminCameraCapturesConcern
 end
 

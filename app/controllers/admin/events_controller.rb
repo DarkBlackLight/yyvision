@@ -1,4 +1,4 @@
 class Admin::EventsController < Admin::ResourcesController
-  include FaceAdminEventsConcern
+  include AdminEventsConcern
 end
 
