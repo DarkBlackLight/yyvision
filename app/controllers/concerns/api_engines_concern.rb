@@ -9,7 +9,7 @@ module ApiEnginesConcern
     end
 
     def set_show_json(resource)
-      resource.as_json(only: [:id, :full_name, :address, :workers, :engine_type, :device, :page, :page_size, :secret])
+      resource.as_json(only: [:id, :full_name, :address, :workers, :engine_type, :device, :params, :secret])
     end
 
   end
