@@ -12,12 +12,18 @@ class CameraCapture < ApplicationRecord
   has_many :location_event_camera_captures, :dependent => :destroy
   has_many :location_events, through: :location_event_camera_captures
 
-  after_create_commit :broadcast
   has_one_attached :img
 
+  before_validation :setup_location
   after_create :update_camera_master
   after_create :search_iface_face
   after_create :post_iface_face
+
+  after_create_commit :broadcast
+
+  def setup_location
+    self.location_id = self.camera.location_id unless self.location_id
+  end
 
   def update_camera_master
     self.camera.update_columns(master_camera_capture_id: self.id, status: 'normal', updated_at: Time.now)
@@ -40,10 +46,6 @@ class CameraCapture < ApplicationRecord
     end
   end
 
-  def img_data
-    img.attached? ? { src: url_for(img), filename: img.filename, content_type: img.content_type } : nil
-  end
-
   def broadcast
     ActionCable.server.broadcast("camera_captures", self.as_json(only: [:id, :created_at],
                                                                  methods: [:img_data],
@@ -56,4 +58,9 @@ class CameraCapture < ApplicationRecord
                                                                                                                         include: { portraits: { only: [], methods: [:img_data] } } }] }] }]))
 
   end
+
+  def img_data
+    img.attached? ? { src: url_for(img), filename: img.filename, content_type: img.content_type } : nil
+  end
+
 end
