@@ -1,3 +1,3 @@
 class AdminController < ApplicationController
-  include AdminConcern
+  include AdminControllerConcern
 end

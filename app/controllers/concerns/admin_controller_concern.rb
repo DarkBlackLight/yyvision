@@ -1,4 +1,4 @@
-module AdminConcern
+module AdminControllerConcern
   extend ActiveSupport::Concern
   included do
     before_action :authenticate_admin_user!
