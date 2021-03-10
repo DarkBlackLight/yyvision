@@ -5,13 +5,6 @@ class Portrait < ApplicationRecord
   set_sortable :index
 
   serialize :box, Array
-  serialize :features, Array
-
-  serialize :left_eye, Array
-  serialize :right_eye, Array
-  serialize :nose, Array
-  serialize :left_mouth, Array
-  serialize :right_mouth, Array
 
   scope :query_source_type, -> (q) { where(source_type: q) }
 
@@ -27,9 +20,7 @@ class Portrait < ApplicationRecord
 
   after_create :post_iface_face
 
-  def img_data
-    img.attached? ? { src: url_for(img), filename: img.filename, content_type: img.content_type } : nil
-  end
+  after_commit :broadcast
 
   def update_person
     if self.source_type == 'Person'
@@ -44,14 +35,16 @@ class Portrait < ApplicationRecord
     end
   end
 
-  after_commit :broadcast
-
   def broadcast
     ActionCable.server.broadcast("portraits", self.as_json(only: [:id, :source_type, :target_confidence, :created_at],
                                                            methods: [:img_data],
                                                            include: [target: { only: [],
                                                                                include: [source: { only: [:name],
                                                                                                    include: { portraits: { only: [], methods: [:img_data] } } }] }]))
+  end
+
+  def img_data
+    img.attached? ? { src: url_for(img), filename: img.filename, content_type: img.content_type } : nil
   end
 
 end
