@@ -3,10 +3,10 @@ class CreateCameras < ActiveRecord::Migration[6.1]
     create_table :cameras do |t|
       t.string :name
       t.string :rtsp
+      t.integer :status
 
       t.integer :master_camera_capture_id
       t.integer :location_id
-      t.integer :status
 
       t.timestamps
     end

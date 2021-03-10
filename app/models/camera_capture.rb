@@ -16,8 +16,8 @@ class CameraCapture < ApplicationRecord
 
   before_validation :setup_location
   after_create :update_camera_master
-  after_create :search_iface_face
-  after_create :post_iface_face
+  # after_create :search_iface_face
+  # after_create :post_iface_face
 
   after_create_commit :broadcast
 
@@ -29,22 +29,22 @@ class CameraCapture < ApplicationRecord
     self.camera.update_columns(master_camera_capture_id: self.id, status: 'normal', updated_at: Time.now)
   end
 
-  def search_iface_face
-    if self.portraits.size > 0
-      results = iface_faces_search(self.portraits, 'Person')
-      if results.size > 0
-        self.portraits.each_with_index do |portrait, index|
-          portrait.update_columns(target_id: results[index][0]["target_id"], target_confidence: results[index][0]["target_confidence"]) if results[index].size > 0
-        end
-      end
-    end
-  end
+  # def search_iface_face
+  #   if self.portraits.size > 0
+  #     results = iface_faces_search(self.portraits, 'Person')
+  #     if results.size > 0
+  #       self.portraits.each_with_index do |portrait, index|
+  #         portrait.update_columns(target_id: results[index][0]["target_id"], target_confidence: results[index][0]["target_confidence"]) if results[index].size > 0
+  #       end
+  #     end
+  #   end
+  # end
 
-  def post_iface_face
-    if self.portraits.size > 0
-      iface_faces_post(self.portraits, 'CameraCapture')
-    end
-  end
+  # def post_iface_face
+  #   if self.portraits.size > 0
+  #     iface_faces_post(self.portraits, 'CameraCapture')
+  #   end
+  # end
 
   def broadcast
     ActionCable.server.broadcast("camera_captures", self.as_json(only: [:id, :created_at],
@@ -56,7 +56,6 @@ class CameraCapture < ApplicationRecord
                                                                                 include: [target: { only: [],
                                                                                                     include: [source: { only: [:name],
                                                                                                                         include: { portraits: { only: [], methods: [:img_data] } } }] }] }]))
-
   end
 
   def img_data

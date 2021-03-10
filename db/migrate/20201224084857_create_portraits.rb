@@ -7,16 +7,9 @@ class CreatePortraits < ActiveRecord::Migration[6.1]
       t.float :target_confidence
 
       t.integer :index
-      t.text :features
 
       t.string :box
-      t.float :confidence
-
-      t.string :left_eye
-      t.string :right_eye
-      t.string :nose
-      t.string :left_mouth
-      t.string :right_mouth
+      t.string :confidence
 
       t.timestamps
     end

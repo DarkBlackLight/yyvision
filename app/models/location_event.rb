@@ -4,7 +4,6 @@ class LocationEvent < ApplicationRecord
 
   has_many :location_event_camera_captures, dependent: :destroy
   has_many :camera_captures, through: :location_event_camera_captures
-  accepts_nested_attributes_for :location_event_camera_captures, allow_destroy: true
 
   after_commit :broadcast
 
