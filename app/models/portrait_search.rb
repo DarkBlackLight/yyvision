@@ -1,6 +1,4 @@
 class PortraitSearch < ApplicationRecord
-  include IfaceConcern
-
   belongs_to :portrait
   belongs_to :admin
   has_many :portrait_search_results, dependent: :destroy

@@ -1,8 +1,6 @@
 module AdminPortraitsConcern
   extend ActiveSupport::Concern
   included do
-    include IfaceConcern
-
     def create
       file = File.read(params[:portrait][:img].path)
       faces = iface_face_detect(file)

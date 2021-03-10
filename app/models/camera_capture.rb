@@ -1,6 +1,4 @@
 class CameraCapture < ApplicationRecord
-  include IfaceConcern
-
   has_many :portraits, as: :source, dependent: :destroy
   accepts_nested_attributes_for :portraits, allow_destroy: true
 

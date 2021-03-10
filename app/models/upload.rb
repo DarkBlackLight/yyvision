@@ -1,6 +1,4 @@
 class Upload < ApplicationRecord
-  include IfaceConcern
-
   belongs_to :admin
 
   has_many :portraits, as: :source, dependent: :destroy

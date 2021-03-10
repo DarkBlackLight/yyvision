@@ -1,4 +1,4 @@
-module IfaceConcern
+module VisionConcern
   extend ActiveSupport::Concern
   require 'open-uri'
   require 'uri'

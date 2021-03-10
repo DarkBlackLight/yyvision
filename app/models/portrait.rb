@@ -1,6 +1,4 @@
 class Portrait < ApplicationRecord
-  include IfaceConcern
-
   include RailsSortable::Model
   set_sortable :index
 
