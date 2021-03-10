@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  # include ManageUserConcern
+  include ManageUserConcern
 
   def email_required?
     false
