@@ -1,10 +1,4 @@
 class Admin::SessionsController < Manage::SessionsController
+  include AdminHelper
   layout 'manage/application'
-
-  protected
-
-  def setup_config
-    @authentication_key = 'username'
-  end
-
 end
