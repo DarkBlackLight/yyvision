@@ -19,6 +19,6 @@ class Location < ApplicationRecord
   before_validation :setup_engine
 
   def setup_engine
-    self.engine = Engine.where(engine_type: :engine).first unless engine
+    self.engine = parent&.engine ? parent.engine : Engine.where(engine_type: :engine).first unless engine
   end
 end
