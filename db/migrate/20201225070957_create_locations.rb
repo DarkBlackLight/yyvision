@@ -6,7 +6,10 @@ class CreateLocations < ActiveRecord::Migration[6.1]
       t.boolean :physical, default: false
       t.string :name
 
+      t.integer :engine_id
       t.timestamps
     end
+
+    add_index :locations, :engine_id
   end
 end

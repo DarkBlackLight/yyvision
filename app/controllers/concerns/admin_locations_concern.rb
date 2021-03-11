@@ -40,7 +40,7 @@ module AdminLocationsConcern
     private
 
     def resource_params
-      params.require(:location).permit(:name, :parent_id, setting_event_ids: [])
+      params.require(:location).permit(:name, :parent_id, :engine_id, setting_event_ids: [])
     end
   end
 end

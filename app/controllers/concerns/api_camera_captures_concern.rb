@@ -6,9 +6,7 @@ module ApiCameraCapturesConcern
 
     def resource_params
       params.require(:camera_capture).permit(:camera_id, :engine_id, :img, :created_at,
-                                             portraits_attributes: [:img, :confidence, :target_id, :target_confidence,
-                                                                    left_eye: [], right_eye: [], nose: [], left_mouth: [],
-                                                                    right_mouth: [], features: [], box: []],
+                                             portraits_attributes: [:img, :target_id, :target_confidence, :confidence, box: []],
                                              bodies_attributes: [:confidence, box: []])
     end
 

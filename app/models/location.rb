@@ -15,4 +15,10 @@ class Location < ApplicationRecord
   has_many :cameras
 
   accepts_nested_attributes_for :event_locations, allow_destroy: true
+
+  before_validation :setup_engine
+
+  def setup_engine
+    self.engine = Engine.where(engine_type: :engine).first unless engine
+  end
 end
