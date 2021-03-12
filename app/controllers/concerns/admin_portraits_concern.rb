@@ -3,7 +3,7 @@ module AdminPortraitsConcern
   included do
     def create
       file = File.read(params[:portrait][:img].path)
-      faces = iface_face_detect(file)
+      faces = vision_face_detect(file)
 
       if faces.size > 1
         render json: { data: 'Your Image Has multiple Faces' }, status: :unprocessable_entity

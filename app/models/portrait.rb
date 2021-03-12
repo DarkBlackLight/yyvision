@@ -21,6 +21,8 @@ class Portrait < ApplicationRecord
 
   after_commit :broadcast
 
+  validates :features, presence: true
+
   def update_person
     if self.source_type == 'Person'
       self.source.master_portrait = self.source.portraits.order(:index).first

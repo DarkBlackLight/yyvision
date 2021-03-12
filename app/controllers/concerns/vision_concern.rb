@@ -4,7 +4,7 @@ module VisionConcern
   require 'uri'
   require 'net/http'
 
-  def iface_face_detect(file)
+  def vision_face_detect(file)
     begin
       base64 = Base64.strict_encode64(file)
       engine = Engine.where(engine_type: :api).sample
