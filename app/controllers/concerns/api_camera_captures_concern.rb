@@ -13,6 +13,5 @@ module ApiCameraCapturesConcern
     def set_show_json(resource)
       resource.as_json(only: [:id])
     end
-
   end
 end
