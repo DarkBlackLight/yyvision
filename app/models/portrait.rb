@@ -16,9 +16,7 @@ class Portrait < ApplicationRecord
 
   after_save :update_person
   after_destroy :update_person
-
-  after_create :post_iface_face
-
+  
   after_create_commit :setup_milvus
   after_commit :broadcast
 
