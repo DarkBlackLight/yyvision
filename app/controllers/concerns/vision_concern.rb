@@ -131,7 +131,7 @@ module VisionConcern
       milvus_address = ENV['MILVUS_ADDRESS'] ? ENV['MILVUS_ADDRESS'] : 'localhost:19121'
 
       uri = URI.parse("http://#{milvus_address}/collections/#{collection_name}/vectors")
-      data = { vectors: [portrait.features], ids: [portrait.id] }
+      data = { vectors: [portrait.features], ids: [portrait.id.to_s] }
 
       http = Net::HTTP.new(uri.host, uri.port)
       http.read_timeout = 600
@@ -140,10 +140,37 @@ module VisionConcern
       request.body = data.to_json
       response = http.request(request)
       response.body
+
+      puts response.body
     rescue => e
-      puts e
-      puts 'MILVUS CANNOT DROP COLLECTION'
+      puts 'MILVUS CANNOT CREATE VECTOR'
     end
+  end
+
+  def milvus_search_vectors(collection_name, portrait, topk = 10)
+    begin
+      milvus_address = ENV['MILVUS_ADDRESS'] ? ENV['MILVUS_ADDRESS'] : 'localhost:19121'
+
+      uri = URI.parse("http://#{milvus_address}/collections/#{collection_name}/vectors")
+      data = { search: { topk: topk, vectors: [portrait.features], params: {} } }
+
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.read_timeout = 600
+      header = { "Content-Type": "application/json" }
+      request = Net::HTTP::Put.new(uri.request_uri, header)
+      request.body = data.to_json
+      response = http.request(request)
+
+      results = JSON.parse(response.body)
+      results['results']
+    rescue
+      puts 'MILVUS CANNOT SEARCH IN COLLECTION'
+      []
+    end
+  end
+
+  def milvus_confidence(distance)
+    1 / (1 + Math.exp(6 * -distance.abs))
   end
 
 end

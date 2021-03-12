@@ -4,10 +4,10 @@ class Upload < ApplicationRecord
   has_many :portraits, as: :source, dependent: :destroy
   accepts_nested_attributes_for :portraits, allow_destroy: true
 
+  enum upload_type: [:portrait]
+
   after_create_commit :setup_portraits
   has_one_attached :img
-
-  enum upload_type: [:portrait]
 
   def img_data
     img.attached? ? { src: url_for(img), filename: img.filename, content_type: img.content_type } : nil
@@ -17,7 +17,7 @@ class Upload < ApplicationRecord
     if img.attached? && self.portrait?
       path = ActiveStorage::Blob.service.send(:path_for, self.img.key)
       file = URI.open(path) { |io| io.read }
-      faces = iface_face_detect(file)
+      faces = vision_face_detect(file)
 
       faces.each do |face|
         face_file = Tempfile.new('face', encoding: 'ascii-8bit')
@@ -26,11 +26,6 @@ class Upload < ApplicationRecord
           face_file.rewind
 
           portrait = Portrait.create(
-            left_eye: face["left_eye"],
-            right_eye: face["right_eye"],
-            nose: face["nose"],
-            left_mouth: face["left_mouth"],
-            right_mouth: face["right_mouth"],
             features: face["features"],
             box: face["box"],
             confidence: face["confidence"],

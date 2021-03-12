@@ -8,11 +8,11 @@ class PortraitSearch < ApplicationRecord
   after_create :setup_portrait_search_results
 
   def setup_portrait_search_results
-    results = iface_faces_search([self.portrait], self.source_type)
-    results[0].each do |result|
+    vectors = milvus_search_vectors(self.source_type, self.portrait, self.size)
+    vectors.each do |vector|
       PortraitSearchResult.create(portrait_search_id: self.id,
-                                  target_id: result["target_id"],
-                                  target_confidence: result["target_confidence"]
+                                  target_id: vector["id"],
+                                  target_confidence: milvus_confidence(vector["distance"])
       )
     end
   end

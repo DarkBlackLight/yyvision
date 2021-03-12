@@ -14,13 +14,25 @@ class Portrait < ApplicationRecord
 
   has_one_attached :img
 
+  before_create :milvus_search
+
   after_save :update_person
   after_destroy :update_person
-  
-  after_create_commit :setup_milvus
+
+  after_create_commit :milvus_setup
   after_commit :broadcast
 
   validates :features, presence: true
+
+  def milvus_search
+    if self.source_type == 'CameraCapture'
+      vectors = milvus_search_vectors(self.source_type, self, 1)
+      if vectors.size > 0
+        self.target_id = vectors[0]["id"]
+        self.target_confidence = milvus_confidence(vectors[0]["distance"])
+      end
+    end
+  end
 
   def update_person
     if self.source_type == 'Person'
@@ -29,7 +41,7 @@ class Portrait < ApplicationRecord
     end
   end
 
-  def setup_milvus
+  def milvus_setup
     milvus_create_vector(self.source_type, self)
   end
 
