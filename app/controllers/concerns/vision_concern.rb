@@ -68,6 +68,27 @@ module VisionConcern
     end
   end
 
+  def milvus_create_collection(collection_name)
+    begin
+      milvus_address = ENV['MILVUS_ADDRESS'] ? ENV['MILVUS_ADDRESS'] : 'localhost:19121'
+
+      uri = URI.parse("http://#{milvus_address}/collections")
+      data = { collection_name: collection_name, dimension: 512, metric_type: 'IP' }
+
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.read_timeout = 600
+      header = { "Content-Type": "application/json" }
+      request = Net::HTTP::Post.new(uri.request_uri, header)
+      request.body = data.to_json
+
+      response = http.request(request)
+      results = JSON.parse(response.body)
+      results
+    rescue
+      puts 'MILVUS CANNOT GET COLLECTIONS'
+    end
+  end
+
   def milvus_get_collections
     begin
       milvus_address = ENV['MILVUS_ADDRESS'] ? ENV['MILVUS_ADDRESS'] : 'localhost:19121'
@@ -81,9 +102,47 @@ module VisionConcern
       response = http.request(request)
 
       results = JSON.parse(response.body)
-      results['data']
+      results['collections']
     rescue
       puts 'MILVUS CANNOT GET COLLECTIONS'
+    end
+  end
+
+  def milvus_drop_collection(collection_name)
+    begin
+      milvus_address = ENV['MILVUS_ADDRESS'] ? ENV['MILVUS_ADDRESS'] : 'localhost:19121'
+
+      uri = URI.parse("http://#{milvus_address}/collections/#{collection_name}")
+
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.read_timeout = 600
+      header = { "Content-Type": "application/json" }
+      request = Net::HTTP::Delete.new(uri.request_uri, header)
+      response = http.request(request)
+      response.body
+    rescue => e
+      puts e
+      puts 'MILVUS CANNOT DROP COLLECTION'
+    end
+  end
+
+  def milvus_create_vector(collection_name, portrait)
+    begin
+      milvus_address = ENV['MILVUS_ADDRESS'] ? ENV['MILVUS_ADDRESS'] : 'localhost:19121'
+
+      uri = URI.parse("http://#{milvus_address}/collections/#{collection_name}/vectors")
+      data = { vectors: [portrait.features], ids: [portrait.id] }
+
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.read_timeout = 600
+      header = { "Content-Type": "application/json" }
+      request = Net::HTTP::Post.new(uri.request_uri, header)
+      request.body = data.to_json
+      response = http.request(request)
+      response.body
+    rescue => e
+      puts e
+      puts 'MILVUS CANNOT DROP COLLECTION'
     end
   end
 

@@ -19,6 +19,7 @@ class Portrait < ApplicationRecord
 
   after_create :post_iface_face
 
+  after_create_commit :setup_milvus
   after_commit :broadcast
 
   validates :features, presence: true
@@ -30,10 +31,8 @@ class Portrait < ApplicationRecord
     end
   end
 
-  def post_iface_face
-    if self.source_type == 'Person'
-      iface_faces_post([self], 'Person')
-    end
+  def setup_milvus
+    milvus_create_vector(self.source_type, self)
   end
 
   def broadcast
