@@ -3,6 +3,7 @@ class Portrait < ApplicationRecord
   set_sortable :index
 
   serialize :box, Array
+  serialize :features, Array
 
   scope :query_source_type, -> (q) { where(source_type: q) }
 

@@ -11,11 +11,6 @@ module AdminPortraitsConcern
         render json: { data: 'Your Image does not have any faces' }, status: :unprocessable_entity
       else
         face = faces[0]
-        params["portrait"]["left_eye"] = face["left_eye"]
-        params["portrait"]["right_eye"] = face["right_eye"]
-        params["portrait"]["nose"] = face["nose"]
-        params["portrait"]["left_mouth"] = face["left_mouth"]
-        params["portrait"]["right_mouth"] = face["right_mouth"]
         params["portrait"]["features"] = face["features"]
         params["portrait"]["box"] = face["box"]
         params["portrait"]["confidence"] = face["confidence"]
@@ -31,8 +26,7 @@ module AdminPortraitsConcern
     private
 
     def resource_params
-      params.require(:portrait).permit(:id, :img, :source_id, :source_type, :confidence,
-                                       left_eye: [], right_eye: [], nose: [], left_mouth: [], right_mouth: [], features: [], box: [])
+      params.require(:portrait).permit(:id, :img, :source_id, :source_type, :confidence, features: [], box: [])
     end
   end
 end

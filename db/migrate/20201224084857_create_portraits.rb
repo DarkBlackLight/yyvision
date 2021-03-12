@@ -6,6 +6,8 @@ class CreatePortraits < ActiveRecord::Migration[6.1]
       t.integer :target_id
       t.float :target_confidence
 
+      t.text :features
+
       t.integer :index
 
       t.string :box
