@@ -21,7 +21,7 @@ module VisionConcern
       response = http.request(request)
 
       faces = JSON.parse(response.body)
-      faces["data"][0]
+      faces["data"]
     rescue
       puts 'IFACE CANNOT FACE DETECT'
     end
