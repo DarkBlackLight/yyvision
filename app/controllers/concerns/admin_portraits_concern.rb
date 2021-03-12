@@ -14,6 +14,7 @@ module AdminPortraitsConcern
         params["portrait"]["features"] = face["features"]
         params["portrait"]["box"] = face["box"]
         params["portrait"]["confidence"] = face["confidence"]
+        params["portrait"]["features"] = face["features"]
 
         File.open(params[:portrait][:img].path, 'wb') do |f|
           f.write(Base64.decode64(face["face_img"]))
