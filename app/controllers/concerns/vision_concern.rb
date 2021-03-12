@@ -11,7 +11,7 @@ module VisionConcern
 
       uri = URI.parse("http://#{engine.address}/face_detect")
 
-      data = { data: [base64], face_img: true }
+      data = { data: base64, face_img: true }
 
       http = Net::HTTP.new(uri.host, uri.port)
       http.read_timeout = 600
