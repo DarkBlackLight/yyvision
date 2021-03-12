@@ -5,8 +5,6 @@ class LocationEvent < ApplicationRecord
   has_many :location_event_camera_captures, dependent: :destroy
   has_many :camera_captures, through: :location_event_camera_captures
 
-  validates :event_id, uniqueness: { scope: :location_id }
-
   after_commit :broadcast
 
   def broadcast
