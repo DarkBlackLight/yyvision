@@ -5,6 +5,8 @@ class CreateEvents < ActiveRecord::Migration[6.1]
       t.string :nickname
 
       t.boolean :enabled, default: true
+      t.boolean :notify, default: true
+
       t.float :confidence, default: 0.6
 
       t.float :tolerance, default: 10
