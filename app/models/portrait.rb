@@ -42,7 +42,7 @@ class Portrait < ApplicationRecord
   end
 
   def milvus_setup
-    milvus_create_vector(self.source_type, self)
+    milvus_create_vector(self.source_type, self) if self.source_type == 'Person' || self.source_type == 'CameraCapture'
   end
 
   def broadcast
