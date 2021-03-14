@@ -162,7 +162,7 @@ module VisionConcern
       response = http.request(request)
 
       results = JSON.parse(response.body)
-      results['result'][0]
+      results['result'][0] ? results['result'][0] : []
     rescue
       puts 'MILVUS CANNOT SEARCH IN COLLECTION'
       []
