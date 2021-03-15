@@ -14,6 +14,7 @@ class Portrait < ApplicationRecord
 
   has_one_attached :img
 
+  before_create :format_features
   before_create :milvus_search
 
   after_save :update_person
@@ -23,6 +24,11 @@ class Portrait < ApplicationRecord
   after_commit :broadcast
 
   validates :features, presence: true
+
+  def format_features
+    self.features = self.features.map { |feature| feature.to_f }
+    self.box = self.box.map { |box| box.to_f }
+  end
 
   def milvus_search
     if self.source_type == 'CameraCapture'
