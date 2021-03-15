@@ -32,7 +32,7 @@ class Portrait < ApplicationRecord
 
   def milvus_search
     if self.source_type == 'CameraCapture'
-      vectors = milvus_search_vectors(self.source_type, self, 1)
+      vectors = milvus_search_vectors('Person', self, 1)
       if vectors.size > 0
         self.target_id = vectors[0]["id"]
         self.target_confidence = milvus_confidence(vectors[0]["distance"])
