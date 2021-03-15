@@ -8,7 +8,7 @@ module ApiEventsConcern
     end
 
     def set_show_json(resource)
-      resource.as_json(only: [:id, :name, :notify, :nickname, :interval, :tolerance, :confidence],
+      resource.as_json(only: [:id, :name, :notify, :nickname, :interval, :problem_tolerance, :problem_category_id, :tolerance, :confidence],
                        include: { event_time_ranges: { only: [:id, :start_time, :end_time] } })
     end
 

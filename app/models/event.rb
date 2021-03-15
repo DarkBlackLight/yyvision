@@ -6,4 +6,6 @@ class Event < ApplicationRecord
 
   has_many :location_events, dependent: :destroy
   has_many :event_locations, dependent: :destroy
+
+  belongs_to :problem_category, optional: true
 end

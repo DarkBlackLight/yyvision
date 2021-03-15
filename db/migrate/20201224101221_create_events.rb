@@ -9,9 +9,11 @@ class CreateEvents < ActiveRecord::Migration[6.1]
 
       t.float :confidence, default: 0.6
 
-      t.float :tolerance, default: 10
+      t.float :tolerance, default: 5
       t.float :interval, default: 10
 
+      t.float :problem_tolerance, default: 15
+      t.integer :problem_category_id
       t.timestamps
     end
   end

@@ -3,7 +3,8 @@ class CreateLocationEvents < ActiveRecord::Migration[6.1]
     create_table :location_events do |t|
       t.integer :location_id
       t.integer :event_id
-      
+
+      t.integer :problem_id
       t.timestamps
     end
 
