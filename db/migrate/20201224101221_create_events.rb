@@ -7,7 +7,7 @@ class CreateEvents < ActiveRecord::Migration[6.1]
       t.boolean :enabled, default: true
       t.boolean :notify, default: true
 
-      t.float :confidence, default: 0.6
+      t.float :confidence, default: 0.75
 
       t.float :tolerance, default: 5
       t.float :interval, default: 10
