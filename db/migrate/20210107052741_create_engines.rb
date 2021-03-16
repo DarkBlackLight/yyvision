@@ -9,7 +9,7 @@ class CreateEngines < ActiveRecord::Migration[6.1]
       t.integer :engine_type, default: 0
       t.integer :device
 
-      t.string :params
+      t.string :params, default: ''
 
       t.datetime :expired_at
       t.timestamps
