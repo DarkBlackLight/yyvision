@@ -3,4 +3,6 @@ class Admin < ApplicationRecord
   accepts_nested_attributes_for :user
 
   belongs_to :location, optional: true
+
+  enum role: [:staff, :admin, :superadmin]
 end
