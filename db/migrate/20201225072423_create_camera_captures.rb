@@ -5,6 +5,7 @@ class CreateCameraCaptures < ActiveRecord::Migration[6.1]
       t.integer :location_id
       t.integer :engine_id
 
+      t.string :img_url
       t.timestamps
     end
 

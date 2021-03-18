@@ -16,11 +16,11 @@ class LocationEvent < ApplicationRecord
                                     admin: Admin.first)
 
       self.camera_captures.each do |camera_capture|
-        img_data = camera_capture.img_data
+        img_data = camera_capture.img_url
         if img_data
           problem_evidence = ProblemEvidence.create(problem: self.problem)
-          filename = File.basename(URI.parse(img_data.src).path)
-          file = URI.open(img_data.src)
+          filename = File.basename(URI.parse(img_data).path)
+          file = URI.open(img_data)
           problem_evidence.img.attach(io: file, filename: filename)
         end
       end
