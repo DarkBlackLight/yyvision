@@ -16,7 +16,7 @@ class Engine < ApplicationRecord
     unless self.secret
       o = [(0..9), ('a'..'z'), ('A'..'Z')].map(&:to_a).flatten
       self.secret = (loop do
-        token = (0...50).map { o[rand(o.length)] }.join
+        token = (0...20).map { o[rand(o.length)] }.join
         break token unless Engine.where(secret: token).exists?
       end)
     end

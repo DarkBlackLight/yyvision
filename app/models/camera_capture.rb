@@ -6,6 +6,8 @@ class CameraCapture < ApplicationRecord
   accepts_nested_attributes_for :bodies, allow_destroy: true
 
   belongs_to :camera
+  belongs_to :location
+  belongs_to :engine
 
   has_many :location_event_camera_captures, :dependent => :destroy
   has_many :location_events, through: :location_event_camera_captures
@@ -25,6 +27,7 @@ class CameraCapture < ApplicationRecord
 
   def broadcast
     ActionCable.server.broadcast("camera_captures", self.as_json(only: [:id, :img_url, :created_at],
+                                                                 methods: [:img_data],
                                                                  include: [
                                                                    camera: { only: [:id, :name], include: { location: { only: [:id, :name], include: [setting_events: { only: [:name] }] } } },
                                                                    portraits: { only: [:id, :target_confidence],
@@ -32,6 +35,10 @@ class CameraCapture < ApplicationRecord
                                                                                 include: [target: { only: [],
                                                                                                     include: [source: { only: [:name],
                                                                                                                         include: { portraits: { only: [], methods: [:img_data] } } }] }] }]))
+  end
+
+  def img_data
+    self.engine.address + self.img_url
   end
 
 end
