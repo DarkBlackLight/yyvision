@@ -38,7 +38,7 @@ class CameraCapture < ApplicationRecord
   end
 
   def img_data
-    self.engine.address + self.img_url
+    'http://' + self.engine.address + self.img_url
   end
 
 end
