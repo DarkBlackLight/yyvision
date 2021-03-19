@@ -17,7 +17,7 @@ class Upload < ApplicationRecord
     if img.attached? && self.portrait?
       path = ActiveStorage::Blob.service.send(:path_for, self.img.key)
       file = URI.open(path) { |io| io.read }
-      faces = vision_face_detect(file)
+      faces = vision_face_detect(file, 0.7)
 
       faces.each do |face|
         face_file = Tempfile.new('face', encoding: 'ascii-8bit')
