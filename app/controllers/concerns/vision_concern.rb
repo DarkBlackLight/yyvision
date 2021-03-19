@@ -140,8 +140,6 @@ module VisionConcern
       request.body = data.to_json
       response = http.request(request)
       response.body
-
-      puts response.body
     rescue => e
       puts 'MILVUS CANNOT CREATE VECTOR'
     end
