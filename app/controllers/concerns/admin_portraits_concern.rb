@@ -27,7 +27,7 @@ module AdminPortraitsConcern
     private
 
     def resource_params
-      params.require(:portrait).permit(:id, :img, :source_id, :source_type, :confidence, features: [], box: [])
+      params.require(:portrait).permit(:id, :img, :source_id, :source_type, :features, :confidence, features: [], box: [])
     end
   end
 end
