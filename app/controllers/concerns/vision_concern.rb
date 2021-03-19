@@ -4,14 +4,14 @@ module VisionConcern
   require 'uri'
   require 'net/http'
 
-  def vision_face_detect(file)
+  def vision_face_detect(file, confidence_threshold)
     begin
       base64 = Base64.strict_encode64(file)
       engine = Engine.where(engine_type: :api).sample
 
       uri = URI.parse("http://#{engine.address}/face_detect")
 
-      data = { data: base64, face_img: true }
+      data = { data: base64, face_img: true, confidence_threshold: confidence_threshold }
 
       http = Net::HTTP.new(uri.host, uri.port)
       http.read_timeout = 600
