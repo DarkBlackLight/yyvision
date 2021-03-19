@@ -11,8 +11,7 @@ module AdminPortraitsConcern
         render json: { data: 'Your Image does not have any faces' }, status: :unprocessable_entity
       else
         face = faces[0]
-        puts faces
-
+        
         params["portrait"]["features"] = face["features"]
         params["portrait"]["box"] = face["box"]
         params["portrait"]["confidence"] = face["confidence"]
