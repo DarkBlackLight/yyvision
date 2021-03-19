@@ -14,7 +14,6 @@ module AdminPortraitsConcern
         params["portrait"]["features"] = face["features"]
         params["portrait"]["box"] = face["box"]
         params["portrait"]["confidence"] = face["confidence"]
-        params["portrait"]["features"] = face["features"]
 
         File.open(params[:portrait][:img].path, 'wb') do |f|
           f.write(Base64.decode64(face["face_img"]))
@@ -27,7 +26,7 @@ module AdminPortraitsConcern
     private
 
     def resource_params
-      params.require(:portrait).permit(:id, :img, :source_id, :source_type, :features, :confidence, features: [], box: [])
+      params.require(:portrait).permit(:id, :img, :source_id, :source_type, :confidence, features: [], box: [])
     end
   end
 end
