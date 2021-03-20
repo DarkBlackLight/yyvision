@@ -26,6 +26,10 @@ module AdminPortraitsConcern
 
     private
 
+    def create_success_path
+      url_for({ action: :edit, id: @resource.id })
+    end
+
     def resource_params
       params.require(:portrait).permit(:id, :img, :source_id, :source_type, :confidence, features: [], box: [])
     end
