@@ -1,4 +1,7 @@
 class LocationEvent < ApplicationRecord
+  scope :query_location_id, -> (q) { where(location_id: q) }
+  scope :query_event_id, -> (q) { where(event_id: q) }
+
   belongs_to :location
   belongs_to :event
   belongs_to :problem, optional: true
@@ -6,10 +9,10 @@ class LocationEvent < ApplicationRecord
   has_many :location_event_camera_captures, dependent: :destroy
   has_many :camera_captures, through: :location_event_camera_captures
 
-  after_commit :create_question
+  after_commit :create_problem
   after_commit :broadcast
 
-  def create_question
+  def create_problem
     if !problem && self.created_at - Time.zone.now > (self.event.problem_tolerance).minutes
       self.problem = Problem.create(issued_at: self.created_at,
                                     problem_category_id: self.event.problem_category_id,

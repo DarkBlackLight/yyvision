@@ -6,6 +6,10 @@ class CreateCameraCaptures < ActiveRecord::Migration[6.1]
       t.integer :engine_id
 
       t.string :img_url
+
+      t.integer :bodies_count, default: 0
+      t.integer :portraits_count, default: 0
+
       t.timestamps
     end
 

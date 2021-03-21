@@ -7,7 +7,7 @@ class Portrait < ApplicationRecord
 
   scope :query_source_type, -> (q) { where(source_type: q) }
 
-  belongs_to :source, polymorphic: true
+  belongs_to :source, polymorphic: true, counter_cache: true
   belongs_to :target, class_name: 'Portrait', optional: true
 
   has_many :portrait_searches, :dependent => :destroy
