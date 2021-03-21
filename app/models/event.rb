@@ -8,4 +8,8 @@ class Event < ApplicationRecord
   has_many :event_locations, dependent: :destroy
 
   belongs_to :problem_category, optional: true
+
+  scope :query_name, -> (q) { where('lower(name) like lower(?)', "%#{q.downcase}%") }
+  scope :query_enabled, ->(q) { where enabled: q }
+
 end

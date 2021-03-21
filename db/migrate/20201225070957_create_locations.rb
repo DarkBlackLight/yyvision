@@ -8,6 +8,9 @@ class CreateLocations < ActiveRecord::Migration[6.1]
 
       t.integer :engine_id
       t.timestamps
+
+      t.integer :location_category_id
+      t.integer :location_level_id
     end
 
     add_index :locations, :engine_id

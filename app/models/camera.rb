@@ -13,6 +13,10 @@ class Camera < ApplicationRecord
   after_create :setup_location
   after_destroy :setup_location
 
+  scope :query_name, -> (q) { where('lower(name) like lower(?)', "%#{q.downcase}%") }
+  scope :query_state, ->(q) { where status: q }
+  scope :query_location, -> (q) { joins(:location).where(:'location_id' => q) }
+
   def create_event_cameras
     location.event_locations.each do |event_location|
       EventCamera.create(event: event_location.event, camera: self)

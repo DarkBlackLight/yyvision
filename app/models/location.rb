@@ -3,6 +3,10 @@ class Location < ApplicationRecord
 
   belongs_to :engine
 
+  belongs_to :location_category
+  belongs_to :location_level
+
+
   belongs_to :parent, class_name: 'Location', optional: true
   has_many :children, class_name: 'Location'
 
@@ -19,6 +23,9 @@ class Location < ApplicationRecord
   accepts_nested_attributes_for :event_locations, allow_destroy: true
 
   before_validation :setup_engine
+
+  scope :query_name, -> (q) { where('lower(name) like lower(?)', "%#{q.downcase}%") }
+  scope :query_parent, -> (q) { where(:parent_id => q) }
 
   def setup_engine
     self.engine = parent&.engine ? parent.engine : Engine.where(engine_type: :engine).first unless engine

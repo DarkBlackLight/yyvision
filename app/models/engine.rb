@@ -12,6 +12,10 @@ class Engine < ApplicationRecord
   validates :full_name, :secret, :device, presence: true
   after_create :create_user
 
+  scope :query_name, -> (q) { where('lower(full_name) like lower(?)', "%#{q.downcase}%") }
+  scope :query_ip, -> (q) { where('lower(address) like lower(?)', "%#{q.downcase}%") }
+  scope :query_type, ->(q) { where engine_type: q }
+
   def setup_secret
     unless self.secret
       o = [(0..9), ('a'..'z'), ('A'..'Z')].map(&:to_a).flatten
