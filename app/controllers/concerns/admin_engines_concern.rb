@@ -5,6 +5,10 @@ module AdminEnginesConcern
   included do
     private
 
+    def filter_params
+      params.slice(:query_name, :query_ip, :query_type)
+    end
+
     def resource_params
       params.require(:engine).permit(:full_name, :address, :workers, :engine_type, :device)
     end

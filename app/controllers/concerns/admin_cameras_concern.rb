@@ -26,6 +26,10 @@ module AdminCamerasConcern
 
     private
 
+    def filter_params
+      params.slice(:query_name, :query_state, :query_location)
+    end
+
     def resource_params
       params.require(:camera).permit(:name, :rtsp, :status, :enabled, :location_id,
                                      event_cameras_attributes: [:box_a, :box_b, :box_c, :box_d, :line_a, :line_b])
