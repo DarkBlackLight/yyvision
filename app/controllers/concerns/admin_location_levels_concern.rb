@@ -3,9 +3,8 @@ module AdminLocationLevelsConcern
   included do
     private
 
-
     def resource_params
-      params.require(:location_levels).permit(:name,)
+      params.require(:location_level).permit(:name)
     end
   end
 end

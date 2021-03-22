@@ -1,4 +1,4 @@
-class Admin::LocationCategoriesController < Admin::ResourcesController
-  include AdminLocationCategoriesConcern
+class Admin::LocationLevelsController < Admin::ResourcesController
+  include AdminLocationLevelsConcern
 end
 
