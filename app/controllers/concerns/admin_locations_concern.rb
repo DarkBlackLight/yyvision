@@ -39,6 +39,10 @@ module AdminLocationsConcern
 
     private
 
+    def filter_params
+      params.slice(:query_name, :query_parent_id)
+    end
+
     def resource_params
       params.require(:location).permit(:name, :parent_id, :engine_id, setting_event_ids: [])
     end

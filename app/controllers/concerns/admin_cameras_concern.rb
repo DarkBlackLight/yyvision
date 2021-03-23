@@ -12,8 +12,24 @@ module AdminCamerasConcern
         ActiveRecord::Base.transaction do
           sheet.each_row_streaming(offset: 1) do |row|
             current_row = current_row + 1
-            location = Location.find_by_name(row[1].to_s)
-            Camera.find_or_create_by!(name: row[0].to_s, location: location, rtsp: row[2].to_s)
+
+            location_parent = nil
+            location_names = row[2].to_s.split('@')
+
+            location_names.each do |location_name|
+              location = Location.find_or_create_by!(name: location_name, parent: location_parent)
+              location_parent = location
+              setting_event_ids = []
+
+              row[3].to_s.split(',').each do |event_name|
+                event = Event.find_by_name(event_name.gsub(/\s+/, ""))
+                setting_event_ids.append(event.id) if event
+              end
+              location.setting_event_ids = setting_event_ids
+              location.save
+
+              Camera.find_or_create_by!(name: row[0].to_s, location: location, rtsp: row[2].to_s)
+            end
           end
         end
 
@@ -27,7 +43,7 @@ module AdminCamerasConcern
     private
 
     def filter_params
-      params.slice(:query_name, :query_state, :query_location)
+      params.slice(:query_name, :query_status, :query_location_id)
     end
 
     def resource_params
