@@ -8,7 +8,7 @@ module ApiLocationEventsConcern
     end
 
     def resource_params
-      params.require(:location_event).permit(:event_id, :problem_id, :location_id, :created_at, camera_capture_ids: [])
+      params.require(:location_event).permit(:event_id, :problem_id, :location_id, :active_at, :length, :created_at, camera_capture_ids: [])
     end
 
   end

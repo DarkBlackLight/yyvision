@@ -5,6 +5,7 @@ class CreateLocationEvents < ActiveRecord::Migration[6.1]
       t.integer :event_id
 
       t.datetime :active_at
+      t.float :length
       t.integer :problem_id
       t.timestamps
     end
