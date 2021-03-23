@@ -12,6 +12,9 @@ class CreateEventCameras < ActiveRecord::Migration[6.1]
       t.string :line_a
       t.string :line_b
 
+      t.boolean :enabled, default: true
+      t.float :confidence, default: 0.75
+
       t.timestamps
     end
 
