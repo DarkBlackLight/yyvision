@@ -28,7 +28,7 @@ module AdminCamerasConcern
               location.setting_event_ids = setting_event_ids
               location.save
 
-              Camera.find_or_create_by!(name: row[0].to_s, location: location, rtsp: row[2].to_s)
+              Camera.find_or_create_by!(name: row[0].to_s, location: location, rtsp: row[1].to_s)
             end
           end
         end
