@@ -4,6 +4,7 @@ class CreatePortraits < ActiveRecord::Migration[6.1]
       t.references :source, polymorphic: true
 
       t.integer :target_id
+      t.integer :engine_id
       t.float :target_confidence
 
       t.text :features
@@ -13,6 +14,7 @@ class CreatePortraits < ActiveRecord::Migration[6.1]
       t.string :box
       t.string :confidence
 
+      t.string :img_url
       t.timestamps
     end
 
