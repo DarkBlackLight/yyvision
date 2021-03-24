@@ -38,7 +38,7 @@ class CameraCapture < ApplicationRecord
   end
 
   def img_data
-    { src: "http://#{self.engine.address}#{self.img_url}", filename: '', content_type: '' }
+    'http://' + self.engine.address + self.img_url
   end
 
 end

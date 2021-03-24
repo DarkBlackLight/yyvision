@@ -10,8 +10,6 @@ class Portrait < ApplicationRecord
   belongs_to :source, polymorphic: true, counter_cache: true
   belongs_to :target, class_name: 'Portrait', optional: true
 
-  belongs_to :engine, optional: true
-
   has_many :portrait_searches, :dependent => :destroy
 
   has_one_attached :img
@@ -62,7 +60,7 @@ class Portrait < ApplicationRecord
   end
 
   def img_data
-    { src: (img.attached? ? url_for(img) : "http://#{self.engine.address}#{self.img_url}"), filename: img.filename, content_type: img.content_type }
+    img.attached? ? { src: url_for(img), filename: img.filename, content_type: img.content_type } : nil
   end
 
 end
