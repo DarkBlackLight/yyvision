@@ -9,8 +9,14 @@ class LocationEvent < ApplicationRecord
   has_many :location_event_camera_captures, dependent: :destroy
   has_many :camera_captures, through: :location_event_camera_captures
 
+  before_save :setup_length
+
   after_commit :create_problem
   after_commit :broadcast
+
+  def setup_length
+    self.length = (self.active_at - self.created_at) / 1.minutes if self.active_at
+  end
 
   def create_problem
     if !problem && self.created_at - Time.zone.now > (self.event.problem_tolerance).minutes

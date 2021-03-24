@@ -23,7 +23,7 @@ module VisionConcern
       faces = JSON.parse(response.body)
       faces["data"]
     rescue
-      puts 'IFACE CANNOT FACE DETECT'
+      logger.error 'IFACE CANNOT FACE DETECT'
     end
   end
 
@@ -44,7 +44,7 @@ module VisionConcern
       results = JSON.parse(response.body)
       results['data']
     rescue
-      puts 'IFACE CANNOT FACE POST'
+      logger.error 'IFACE CANNOT FACE POST'
     end
   end
 
@@ -63,7 +63,7 @@ module VisionConcern
 
         response.body
       rescue
-        puts 'IFACE CANNOT FACE POST'
+        logger.error 'IFACE CANNOT FACE POST'
       end
     end
   end
@@ -85,7 +85,7 @@ module VisionConcern
       results = JSON.parse(response.body)
       results
     rescue
-      puts 'MILVUS CANNOT GET COLLECTIONS'
+      logger.error 'MILVUS CANNOT GET COLLECTIONS'
     end
   end
 
@@ -104,7 +104,7 @@ module VisionConcern
       results = JSON.parse(response.body)
       results['collections']
     rescue
-      puts 'MILVUS CANNOT GET COLLECTIONS'
+      logger.error 'MILVUS CANNOT GET COLLECTIONS'
     end
   end
 
@@ -121,8 +121,8 @@ module VisionConcern
       response = http.request(request)
       response.body
     rescue => e
-      puts e
-      puts 'MILVUS CANNOT DROP COLLECTION'
+      logger.error e
+      logger.error 'MILVUS CANNOT DROP COLLECTION'
     end
   end
 
@@ -141,7 +141,7 @@ module VisionConcern
       response = http.request(request)
       response.body
     rescue => e
-      puts 'MILVUS CANNOT CREATE VECTOR'
+      logger.error 'MILVUS CANNOT CREATE VECTOR'
     end
   end
 
@@ -162,7 +162,7 @@ module VisionConcern
       results = JSON.parse(response.body)
       results['result'][0] ? results['result'][0] : []
     rescue
-      puts 'MILVUS CANNOT SEARCH IN COLLECTION'
+      logger.error 'MILVUS CANNOT SEARCH IN COLLECTION'
       []
     end
   end
