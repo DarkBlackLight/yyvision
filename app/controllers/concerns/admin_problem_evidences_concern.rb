@@ -8,7 +8,7 @@ module AdminProblemEvidencesConcern
     end
 
     def resource_params
-      params.require(:product_evidence).permit(:problem_id, :img)
+      params.require(:problem_evidence).permit(:problem_id, :img)
     end
 
   end
