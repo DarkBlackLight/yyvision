@@ -10,7 +10,7 @@ module AdminEnginesConcern
     end
 
     def resource_params
-      params.require(:engine).permit(:full_name, :address, :workers, :engine_type, :device)
+      params.require(:engine).permit(:full_name, :internal_address, :external_address, :workers, :engine_type, :device)
     end
   end
 end
