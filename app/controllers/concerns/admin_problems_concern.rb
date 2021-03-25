@@ -8,7 +8,8 @@ module AdminProblemsConcern
     end
 
     def resource_params
-      params.require(:problem).permit(:problem_category_id, :issued_at, :note, :admin_id)
+      params.require(:problem).permit(:problem_category_id, :issued_at, :note, :admin_id,
+                                      problem_evidences_attributes: [:id, :_destroy])
     end
   end
 end
