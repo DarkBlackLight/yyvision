@@ -4,7 +4,7 @@ class CreateEngines < ActiveRecord::Migration[6.1]
       t.string :full_name
       t.string :secret
 
-      t.string :interval_address, default: '127.0.0.1:7998'
+      t.string :internal_address, default: '127.0.0.1:7998'
       t.string :external_address, default: '127.0.0.1:7998'
 
       t.string :workers, default: 1
