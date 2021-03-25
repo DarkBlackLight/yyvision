@@ -13,7 +13,7 @@ class CreateEngines < ActiveRecord::Migration[6.1]
 
       t.string :params, default: ''
 
-      t.boolean :cached, default: true
+      t.boolean :cached, default: false
 
       t.datetime :expired_at
       t.timestamps
