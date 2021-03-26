@@ -27,8 +27,6 @@ class Location < ApplicationRecord
   scope :query_name, -> (q) { where('lower(name) like lower(?)', "%#{q.downcase}%") }
   scope :query_parent, -> (q) { where(:parent_id => q) }
 
-  scope :query_created_at_from, -> (q) { where('camera_captures.created_at >= ?', Time.zone.parse(q)) }
-  scope :query_created_at_to, -> (q) { where('camera_captures.created_at <= ?', Time.zone.parse(q)) }
 
   def setup_engine
     self.engine = parent&.engine ? parent.engine : Engine.where(engine_type: :engine).first unless engine
