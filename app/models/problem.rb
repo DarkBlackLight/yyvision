@@ -12,6 +12,6 @@ class Problem < ApplicationRecord
     self.issued_at = Time.zone.now unless self.issued_at
   end
 
-  enum discover_type: [:vision, :search, :manuel, :other]
+  enum discover_type: [:vision, :search, :manual, :other]
   enum problem_status: [:waiting, :correcting, :corrected, :invalid, :reviewing]
 end
