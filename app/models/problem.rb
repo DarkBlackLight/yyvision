@@ -1,5 +1,6 @@
 class Problem < ApplicationRecord
   scope :query_problem_category_id, -> (q) { where(problem_category_id: q) }
+  scope :query_discover_type, -> (q) { where(discover_type: q) }
 
   belongs_to :problem_category, optional: true
   belongs_to :admin
