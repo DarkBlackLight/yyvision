@@ -1,6 +1,7 @@
 class Problem < ApplicationRecord
   scope :query_problem_category_id, -> (q) { where(problem_category_id: q) }
   scope :query_discover_type, -> (q) { where(discover_type: q) }
+  scope :query_problem_status, -> (q) { where(problem_status: q) }
   scope :query_from_date, -> (q) { where(issued_at: Time.zone.parse(q)..) }
   scope :query_to_date, -> (q) { where(issued_at: ..Time.zone.parse(q)) }
   scope :query_admin_id, -> (q) { where(admin_id: q) }
