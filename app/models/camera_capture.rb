@@ -1,7 +1,4 @@
 class CameraCapture < ApplicationRecord
-  scope :query_created_at_from, -> (q) { where('camera_captures.created_at >= ?', Time.zone.parse(q)) }
-  scope :query_created_at_to, -> (q) { where('camera_captures.created_at <= ?', Time.zone.parse(q)) }
-
   has_many :portraits, as: :source, dependent: :destroy
   accepts_nested_attributes_for :portraits, allow_destroy: true
 
