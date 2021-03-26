@@ -8,7 +8,7 @@ module AdminAdminsConcern
     end
 
     def resource_params
-      params.require(:admin).permit(:id, :full_name, :location_id, :role, user_attributes: [:full_name, :username, :password, :password_confirmation])
+      params.require(:admin).permit(:id, :full_name, :location_id, :role, user_attributes: [:id, :full_name, :username, :password, :password_confirmation])
     end
   end
 end
