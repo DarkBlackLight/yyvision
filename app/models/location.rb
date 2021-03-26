@@ -6,8 +6,8 @@ class Location < ApplicationRecord
   belongs_to :location_category, optional: true
   belongs_to :location_level, optional: true
 
-  belongs_to :parent, class_name: 'Location', optional: true
-  has_many :children, class_name: 'Location'
+  belongs_to :parent, class_name: 'Location', foreign_key: 'parent_id', optional: true
+  has_many :children, class_name: 'Location', foreign_key: 'parent_id'
 
   has_many :location_events, dependent: :destroy
   has_many :actual_events, through: :location_events, class_name: 'Event', source: :event
@@ -26,7 +26,6 @@ class Location < ApplicationRecord
 
   scope :query_name, -> (q) { where('lower(name) like lower(?)', "%#{q.downcase}%") }
   scope :query_parent, -> (q) { where(:parent_id => q) }
-
 
   def setup_engine
     self.engine = parent&.engine ? parent.engine : Engine.where(engine_type: :engine).first unless engine
