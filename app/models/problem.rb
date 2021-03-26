@@ -13,5 +13,5 @@ class Problem < ApplicationRecord
   end
 
   enum discover_type: [:vision, :search, :manuel, :other]
-  enum problem_status: [:waiting, :correcting, :corrected, :invalid, :reviewing]
+  enum problem_status: [:waiting, :correcting, :corrected, :negate, :reviewing]
 end
