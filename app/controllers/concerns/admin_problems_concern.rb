@@ -1,8 +1,6 @@
 module AdminProblemsConcern
   extend ActiveSupport::Concern
   included do
-    private
-
 
     def stats_problem_group_type
       @data = Problem.accessible_by(current_ability, :read).filterable(filter_params).group(:problem_status).count
@@ -53,6 +51,7 @@ module AdminProblemsConcern
       end
     end
 
+    private
 
     def filter_params
       params.slice(:query_problem_category_id, :query_from_date, :query_to_date, :query_admin_id)
