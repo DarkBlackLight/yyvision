@@ -17,6 +17,8 @@ class Location < ApplicationRecord
 
   has_many :cameras
 
+  has_many :problems
+
   accepts_nested_attributes_for :event_locations, allow_destroy: true
 
   before_validation :setup_engine

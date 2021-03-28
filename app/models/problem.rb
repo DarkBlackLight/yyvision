@@ -8,6 +8,7 @@ class Problem < ApplicationRecord
 
   belongs_to :problem_category, optional: true
   belongs_to :admin
+  belongs_to :location
 
   has_many :problem_evidences, dependent: :destroy
 
