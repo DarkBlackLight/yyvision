@@ -2,6 +2,12 @@ module AdminCamerasConcern
   extend ActiveSupport::Concern
   included do
 
+
+    def stats_cameras_group_status
+      render json: {online: Camera.accessible_by(current_ability, :read).filterable(filter_params).where(status: 'normal').size, offline: Camera.accessible_by(current_ability, :read).filterable(filter_params).where(status: 'offline').size}.as_json, status: :ok
+    end
+
+
     def upload_excel
       require 'roo'
       xlsx = Roo::Spreadsheet.open(params[:file])
