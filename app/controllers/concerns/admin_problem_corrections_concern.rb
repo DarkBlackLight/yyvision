@@ -8,7 +8,7 @@ module AdminProblemCorrectionsConcern
     end
 
     def resource_params
-      params.require(:problem_corrections).permit(:problem_id, :img)
+      params.require(:problem_correction).permit(:problem_id, :img)
     end
 
   end
