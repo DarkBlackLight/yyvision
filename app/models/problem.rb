@@ -11,6 +11,7 @@ class Problem < ApplicationRecord
   belongs_to :location
 
   has_many :problem_evidences, dependent: :destroy
+  has_many :problem_corrections, dependent: :destroy
 
   before_validation :setup_issued_at
 
