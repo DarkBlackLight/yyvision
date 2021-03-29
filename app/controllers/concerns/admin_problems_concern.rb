@@ -2,6 +2,11 @@ module AdminProblemsConcern
   extend ActiveSupport::Concern
   included do
 
+    def stats_problem_map_modal
+      @resources  = Problem.joins(:location).where(locations: {name: params[:name]})
+      render 'admin/dashboard/map_problem_module', layout: false
+    end
+
     def stats_problem_group_type
       @data = Problem.accessible_by(current_ability, :read).filterable(filter_params).group(:problem_status).count
       @result = {}
@@ -58,7 +63,7 @@ module AdminProblemsConcern
     end
 
     def resource_params
-      params.require(:problem).permit(:problem_category_id, :issued_at, :note, :admin_id, :location_id,
+      params.require(:problem).permit(:problem_status, :problem_category_id, :issued_at, :note, :admin_id, :location_id,
                                       problem_evidences_attributes: [:id, :_destroy])
     end
   end
