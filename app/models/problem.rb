@@ -11,7 +11,10 @@ class Problem < ApplicationRecord
   belongs_to :location
 
   has_many :problem_evidences, dependent: :destroy
+  accepts_nested_attributes_for :problem_evidences, allow_destroy: true
+
   has_many :problem_corrections, dependent: :destroy
+  accepts_nested_attributes_for :problem_corrections, allow_destroy: true
 
   before_validation :setup_issued_at
 
