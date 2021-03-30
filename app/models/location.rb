@@ -53,4 +53,12 @@ class Location < ApplicationRecord
     Camera.where(location_id: self.all_children)
   end
 
+  def all_parents
+    [self.id] + (self.parent ? self.parent.all_parents : [])
+  end
+
+  def all_parents_location
+    Location.where(id: self.all_parents)
+  end
+
 end
