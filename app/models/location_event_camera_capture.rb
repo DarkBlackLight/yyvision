@@ -2,7 +2,7 @@ class LocationEventCameraCapture < ApplicationRecord
   belongs_to :location_event
   belongs_to :camera_capture
 
-  validates :camera_capture_id, uniqueness: { scope: :location_event_id }
+  # validates :camera_capture_id, uniqueness: { scope: :location_event_id }
 
   after_commit :create_problem_evidence
 

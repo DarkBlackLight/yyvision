@@ -37,6 +37,10 @@ class Location < ApplicationRecord
     self.children.inject([self.id]) { |sum, x| sum + x.all_children }
   end
 
+  def all_children_locations
+    Location.where(id: self.all_children)
+  end
+
   def all_children_location_events
     LocationEvent.where(location_id: self.all_children)
   end
@@ -47,6 +51,14 @@ class Location < ApplicationRecord
 
   def all_children_cameras
     Camera.where(location_id: self.all_children)
+  end
+
+  def all_parents
+    [self.id] + (self.parent ? self.parent.all_parents : [])
+  end
+
+  def all_parents_locations
+    Location.where(id: self.all_parents)
   end
 
 end
