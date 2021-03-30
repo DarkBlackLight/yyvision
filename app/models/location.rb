@@ -37,6 +37,10 @@ class Location < ApplicationRecord
     self.children.inject([self.id]) { |sum, x| sum + x.all_children }
   end
 
+  def all_children_location
+    Location.where(id: self.all_children)
+  end
+
   def all_children_location_events
     LocationEvent.where(location_id: self.all_children)
   end
