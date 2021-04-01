@@ -26,9 +26,9 @@ class LocationEvent < ApplicationRecord
   end
 
   def create_problem
-    if !problem && self.length > (self.event.problem_tolerance).minutes
+    if !problem && self.length >= self.event.problem_tolerance.minutes
       self.problem = Problem.create(issued_at: self.created_at,
-                                    location: self.camera.location,
+                                    location: self.location,
                                     problem_category_id: self.event.problem_category_id,
                                     admin: Admin.first)
       self.save
