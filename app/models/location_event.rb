@@ -12,7 +12,7 @@ class LocationEvent < ApplicationRecord
   before_save :setup_length
 
   after_commit :create_problem
-  after_commit :broadcast
+  after_create_commit :broadcast
 
   scope :query_event_id, -> (q) { joins(:event).where(:'event_id' => q) }
   scope :query_location_id_1, -> (q) { joins(:location).where(:'location_id' => q) }
@@ -27,12 +27,12 @@ class LocationEvent < ApplicationRecord
 
   def create_problem
     if !problem && self.length >= self.event.problem_tolerance
-      problem = Problem.create(issued_at: self.created_at,
-                               location: self.location,
-                               problem_category_id: self.event.problem_category_id,
-                               admin: Admin.first)
+      self.problem = Problem.create(issued_at: self.created_at,
+                                    location: self.location,
+                                    problem_category_id: self.event.problem_category_id,
+                                    admin: Admin.first)
 
-      self.update_column(:problem_id, problem.id)
+      self.save
 
       self.camera_captures.each do |camera_capture|
         img_data = camera_capture.img_data[:src]
