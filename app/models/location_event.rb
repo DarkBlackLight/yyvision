@@ -27,14 +27,16 @@ class LocationEvent < ApplicationRecord
 
   def create_problem
     if !problem && self.length >= self.event.problem_tolerance
-      self.problem = Problem.create(issued_at: self.created_at,
-                                    location: self.location,
-                                    problem_category_id: self.event.problem_category_id,
-                                    admin: Admin.first)
-      self.save
+      problem = Problem.create(issued_at: self.created_at,
+                               location: self.location,
+                               problem_category_id: self.event.problem_category_id,
+                               admin: Admin.first)
+
+      self.update_column(:problem_id, problem.id)
 
       self.camera_captures.each do |camera_capture|
-        img_data = camera_capture.img_url
+        img_data = camera_capture.img_data[:src]
+
         if img_data
           problem_evidence = ProblemEvidence.create(problem: self.problem)
           filename = File.basename(URI.parse(img_data).path)
