@@ -18,11 +18,21 @@ class Problem < ApplicationRecord
 
   before_validation :setup_issued_at
 
+  after_create_commit :broadcast
+
   def setup_issued_at
     self.issued_at = Time.zone.now unless self.issued_at
   end
 
   enum discover_type: [:vision, :search, :manual, :other]
   enum problem_status: [:waiting, :correcting, :corrected, :negate, :reviewing]
+
+  def broadcast
+    if self.vision?
+      ActionCable.server.broadcast("problems", self.as_json(only: [:id, :created_at],
+                                                            include: [location: { only: [:id, :name] },
+                                                                      problem_category: { only: [:id, :name] }]))
+    end
+  end
 
 end
