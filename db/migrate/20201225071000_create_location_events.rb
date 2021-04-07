@@ -7,6 +7,8 @@ class CreateLocationEvents < ActiveRecord::Migration[6.1]
       t.datetime :active_at
       t.float :length
       t.integer :problem_id
+
+      t.string :video_url
       t.timestamps
     end
 
