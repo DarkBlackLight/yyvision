@@ -67,6 +67,8 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
+    ancestry (3.2.1)
+      activerecord (>= 4.2.0)
     bcrypt (3.1.16)
     builder (3.2.4)
     concurrent-ruby (1.1.8)
@@ -157,6 +159,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ancestry
   sqlite3
   yyvision!
 

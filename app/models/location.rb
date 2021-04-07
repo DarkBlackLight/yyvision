@@ -1,4 +1,6 @@
 class Location < ApplicationRecord
+  has_ancestry
+
   scope :query_physical, -> (q) { where(physical: q) }
 
   belongs_to :engine
