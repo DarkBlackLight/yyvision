@@ -8,6 +8,6 @@ class CreateBanks < ActiveRecord::Migration[6.1]
       t.timestamps
     end
 
-    add_index :locations, :ancestry
+    add_index :banks, :ancestry
   end
 end

@@ -23,10 +23,8 @@ class Location < ApplicationRecord
   before_validation :setup_engine
 
   validates :name, presence: true
-  validates :name, uniqueness: { scope: :parent_id }
 
   scope :query_name, -> (q) { where('lower(name) like lower(?)', "%#{q.downcase}%") }
-  scope :query_parent, -> (q) { where(:parent_id => q) }
 
   def setup_engine
     self.engine = parent&.engine ? parent.engine : Engine.where(engine_type: :engine).first unless engine
