@@ -8,9 +8,6 @@ class Location < ApplicationRecord
   belongs_to :location_category, optional: true
   belongs_to :location_level, optional: true
 
-  belongs_to :parent, class_name: 'Location', foreign_key: 'parent_id', optional: true
-  has_many :children, class_name: 'Location', foreign_key: 'parent_id'
-
   has_many :location_events, dependent: :destroy
   has_many :actual_events, through: :location_events, class_name: 'Event', source: :event
 

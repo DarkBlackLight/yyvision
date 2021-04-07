@@ -1,11 +1,13 @@
 class CreateProblemCategories < ActiveRecord::Migration[6.1]
   def change
     create_table :problem_categories do |t|
-      t.integer :parent_id
-      t.integer :level, default: 1
-
+      t.integer :level, default: 0
+      t.string :ancestry
       t.string :name
+      t.integer :index
       t.timestamps
     end
+
+    add_index :problem_categories, :ancestry
   end
 end

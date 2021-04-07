@@ -25,7 +25,7 @@ class Problem < ApplicationRecord
   end
 
   enum discover_type: [:vision, :search, :manual, :other]
-  enum problem_status: [:waiting, :correcting, :corrected, :negate, :reviewing]
+  enum problem_status: [:waiting, :correcting, :corrected, :negated, :reviewing]
 
   def broadcast
     if self.vision?
