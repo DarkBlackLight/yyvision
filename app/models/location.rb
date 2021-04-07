@@ -30,32 +30,19 @@ class Location < ApplicationRecord
     self.engine = parent&.engine ? parent.engine : Engine.where(engine_type: :engine).first unless engine
   end
 
-  def all_children
-    self.children.inject([self.id]) { |sum, x| sum + x.all_children }
+  def all_descendant_locations
+    Location.where(id: self.descendant_ids)
   end
 
-  def all_children_locations
-    Location.where(id: self.all_children)
+  def all_descendant_location_events
+    LocationEvent.where(location_id: self.descendant_ids)
   end
 
-  def all_children_location_events
-    LocationEvent.where(location_id: self.all_children)
+  def all_descendant_problems
+    Problem.where(location_id: self.descendant_ids)
   end
 
-  def all_children_problems
-    Problem.where(location_id: self.all_children)
+  def all_descendant_cameras
+    Camera.where(location_id: self.descendant_ids)
   end
-
-  def all_children_cameras
-    Camera.where(location_id: self.all_children)
-  end
-
-  def all_parents
-    [self.id] + (self.parent ? self.parent.all_parents : [])
-  end
-
-  def all_parents_locations
-    Location.where(id: self.all_parents)
-  end
-
 end
