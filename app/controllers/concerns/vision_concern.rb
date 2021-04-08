@@ -9,7 +9,7 @@ module VisionConcern
       base64 = Base64.strict_encode64(file)
       engine = Engine.where(engine_type: :api).sample
 
-      uri = URI.parse("http://#{engine.internal_address}/face_detect")
+      uri = URI.parse("http://#{engine.external_address}/face_detect")
 
       data = { data: base64, face_img: true, confidence_threshold: confidence_threshold }
 
@@ -31,7 +31,7 @@ module VisionConcern
     begin
       engine = Engine.where(engine_type: :api).sample
 
-      uri = URI.parse("http://#{engine.internal_address}/face_search")
+      uri = URI.parse("http://#{engine.external_address}/face_search")
       data = { data: faces.as_json(only: [:features]), source_type: source_type }
 
       http = Net::HTTP.new(uri.host, uri.port)
@@ -51,7 +51,7 @@ module VisionConcern
   def iface_faces_post(faces, source_type)
     Engine.where(engine_type: :api).each do |engine|
       begin
-        uri = URI.parse("http://#{engine.internal_address}/face_post")
+        uri = URI.parse("http://#{engine.external_address}/face_post")
         data = { data: faces.as_json(only: [:id, :features]), source_type: source_type }
 
         http = Net::HTTP.new(uri.host, uri.port)
