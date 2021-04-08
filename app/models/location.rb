@@ -2,7 +2,8 @@ class Location < ApplicationRecord
   has_ancestry
 
   scope :query_physical, -> (q) { where(physical: q) }
-
+  scope :query_name, -> (q) { where('lower(name) like lower(?)', "%#{q.downcase}%") }
+  scope :query_location_level_name, -> (q) { joins(:location_level).where(location_levels: { name: q }) }
   belongs_to :engine
 
   belongs_to :location_category, optional: true
@@ -23,8 +24,6 @@ class Location < ApplicationRecord
   before_validation :setup_engine
 
   validates :name, presence: true
-
-  scope :query_name, -> (q) { where('lower(name) like lower(?)', "%#{q.downcase}%") }
 
   def setup_engine
     self.engine = parent&.engine ? parent.engine : Engine.where(engine_type: :engine).first unless engine
