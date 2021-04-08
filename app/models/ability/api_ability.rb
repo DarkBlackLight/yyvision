@@ -5,7 +5,7 @@ class Ability::ApiAbility
 
     if user
       if user.source.class.name == 'Engine'
-        can :read, Engine, id: user.source_id
+        can :read, Engine
         can :read, Location
         can :read, Event
         can :read, Portrait

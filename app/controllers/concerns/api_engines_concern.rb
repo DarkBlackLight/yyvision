@@ -5,7 +5,7 @@ module ApiEnginesConcern
     private
 
     def filter_params
-      params.slice(:query_secret)
+      params.slice(:query_secret, :query_type)
     end
 
     def set_show_json(resource)
