@@ -4,7 +4,7 @@ class Location < ApplicationRecord
   scope :query_physical, -> (q) { where(physical: q) }
   scope :query_name, -> (q) { where('lower(name) like lower(?)', "%#{q.downcase}%") }
   scope :query_event_id, -> (q) { joins(:location_events).where(location_events: {event_id: q}) }
-  scope :query_location_level_name, -> (q) { joins(:location_level).where(location_levels: { name: q }) }
+  scope :query_location_level_name, -> (q) { joins(:location_level).where(:'location_level_id' => q) }
   belongs_to :engine
 
   belongs_to :location_category, optional: true
