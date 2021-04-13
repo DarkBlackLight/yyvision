@@ -9,7 +9,7 @@ module AdminProblemsConcern
     end
 
     def resource_params
-      params.require(:problem).permit(:invalidp_user, :invalidp_time, :invalidp, :correction_user, :correction_time, :correction, :problem_status, :discover_type, :problem_category_id, :issued_at, :note, :admin_id, :location_id,
+      params.require(:problem).permit(:reviewing_admin, :reviewing_at, :reviewing_note, :invalidp_user, :invalidp_time, :invalidp, :correction_user, :correction_time, :correction, :problem_status, :discover_type, :problem_category_id, :issued_at, :note, :admin_id, :location_id,
                                       problem_evidences_attributes: [:id, :_destroy])
     end
 

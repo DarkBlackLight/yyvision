@@ -53,7 +53,7 @@ module AdminCamerasConcern
     end
 
     def resource_params
-      params.require(:camera).permit(:name, :rtsp, :status, :enabled, :location_id,
+      params.require(:camera).permit(:marked, :name, :rtsp, :status, :enabled, :location_id,
                                      event_cameras_attributes: [:box_a, :box_b, :box_c, :box_d, :line_a, :line_b])
     end
   end
