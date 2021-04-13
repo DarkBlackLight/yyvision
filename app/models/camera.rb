@@ -17,6 +17,7 @@ class Camera < ApplicationRecord
   scope :query_status, ->(q) { where status: q }
   scope :query_event_id, -> (q) { joins(:event_cameras).where(event_cameras: {event_id: q}) }
   scope :query_location_id, -> (q) { joins(:location).where(:'location_id' => q) }
+  scope :query_marked, ->(q) { where marked: q }
 
   def create_event_cameras
     location.event_locations.each do |event_location|

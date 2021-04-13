@@ -49,7 +49,7 @@ module AdminCamerasConcern
     private
 
     def filter_params
-      params.slice(:query_event_id, :query_name, :query_status, :query_location_id)
+      params.slice(:query_marked, :query_event_id, :query_name, :query_status, :query_location_id)
     end
 
     def resource_params
