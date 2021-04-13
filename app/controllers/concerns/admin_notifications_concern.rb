@@ -8,7 +8,7 @@ module AdminNotificationsConcern
     end
 
     def resource_params
-      params.require(:notification).permit(:name, :description, :admin_id)
+      params.require(:notification).permit(:name, :description, :admin_id, notification_attachments_attributes: [:id, :_destroy])
     end
 
   end
