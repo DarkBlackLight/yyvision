@@ -28,7 +28,7 @@ class Location < ApplicationRecord
   validates :name, presence: true
 
   def setup_engine
-    self.engine = parent&.engine ? parent.engine : Engine.where(engine_type: :engine).first unless engine
+    self.engine = parent&.engine ? parent.engine : Engine.where(engine_type: :capture).first unless engine
   end
 
   def all_descendant_locations
