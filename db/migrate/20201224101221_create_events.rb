@@ -14,6 +14,8 @@ class CreateEvents < ActiveRecord::Migration[6.1]
 
       t.float :problem_tolerance, default: 15
       t.integer :problem_category_id
+      t.integer :observation, default: 1
+      t.boolean :if_holiday, default: false
       t.timestamps
     end
   end

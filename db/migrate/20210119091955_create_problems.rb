@@ -18,6 +18,10 @@ class CreateProblems < ActiveRecord::Migration[6.1]
       t.datetime :negated_at
       t.string :negated_note
 
+      t.string :reviewing_admin
+      t.datetime :reviewing_at
+      t.string :reviewing_note
+
       t.timestamps
     end
   end
