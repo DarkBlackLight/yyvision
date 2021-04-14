@@ -6,7 +6,7 @@ class Engine < ApplicationRecord
   has_one :user, as: :source, dependent: :destroy
   accepts_nested_attributes_for :user
 
-  enum engine_type: [:engine, :api]
+  enum engine_type: [:capture, :vision]
 
   before_validation :setup_secret
   validates :full_name, :secret, :device, presence: true
