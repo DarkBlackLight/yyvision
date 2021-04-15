@@ -8,6 +8,8 @@ class CreateCameras < ActiveRecord::Migration[6.1]
       t.integer :master_camera_capture_id
       t.integer :location_id
 
+      t.boolean :marked, default: false
+
       t.timestamps
     end
 
