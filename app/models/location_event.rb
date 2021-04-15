@@ -51,7 +51,7 @@ class LocationEvent < ApplicationRecord
   def broadcast
     if active
       ActionCable.server.broadcast("location_events", self.as_json(only: [:id, :created_at],
-                                                                   include: [location: { only: [:id, :name] },
+                                                                   include: [location: { only: [:id, :name, :ancestry] },
                                                                              event: { only: [:id, :name] }]))
     end
   end
