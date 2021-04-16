@@ -1,3 +1,3 @@
 class Api::HolidaysController < Api::ResourcesController
-  include ApiEventsConcern
+  include ApiHolidaysConcern
 end
