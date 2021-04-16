@@ -14,6 +14,7 @@ class Ability::ApiAbility
         can :read, Location
         can :read, Event
         can :read, Portrait
+        can :read, Holiday
 
         can :update, Camera
         can :create, CameraCapture
