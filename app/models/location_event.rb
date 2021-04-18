@@ -28,10 +28,16 @@ class LocationEvent < ApplicationRecord
 
   def create_problem
     if !problem && self.length >= self.event.problem_tolerance
+
+      self.problem = Problem.where(location: self.location,
+                                   problem_category_id: self.event.problem_category_id,
+                                   admin: Admin.first)
+                            .query_from_date((self.created_at - self.event.interval.minutes).strftime('%F %T')).first
+
       self.problem = Problem.create(issued_at: self.created_at,
                                     location: self.location,
                                     problem_category_id: self.event.problem_category_id,
-                                    admin: Admin.first)
+                                    admin: Admin.first) unless self.problem
 
       self.save
 
