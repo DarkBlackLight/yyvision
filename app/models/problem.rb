@@ -10,6 +10,8 @@ class Problem < ApplicationRecord
   belongs_to :admin
   belongs_to :location
 
+  has_many :location_events
+
   has_many :problem_evidences, dependent: :destroy
   accepts_nested_attributes_for :problem_evidences, allow_destroy: true
 
