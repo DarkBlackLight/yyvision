@@ -6,7 +6,7 @@ class Camera < ApplicationRecord
 
   belongs_to :master_camera_capture, class_name: "CameraCapture", optional: true
 
-  enum status: [:normal, :offline]
+  enum status: [:normal, :offline, :corrupted]
 
   after_create :create_event_cameras
 
@@ -15,7 +15,7 @@ class Camera < ApplicationRecord
 
   scope :query_name, -> (q) { where('lower(name) like lower(?)', "%#{q.downcase}%") }
   scope :query_status, ->(q) { where status: q }
-  scope :query_event_id, -> (q) { joins(:event_cameras).where(event_cameras: {event_id: q}) }
+  scope :query_event_id, -> (q) { joins(:event_cameras).where(event_cameras: { event_id: q }) }
   scope :query_location_id, -> (q) { joins(:location).where(:'location_id' => q) }
   scope :query_marked, ->(q) { where marked: q }
 
