@@ -28,7 +28,7 @@ class CameraCapture < ApplicationRecord
   end
 
   def broadcast
-    ActionCable.server.broadcast("camera_captures", self.as_json(only: [:id, :img_url, :created_at],
+    ActionCable.server.broadcast("camera_captures", self.as_json(only: [:id, :created_at],
                                                                  methods: [:img_data],
                                                                  include: [
                                                                    camera: { only: [:id, :status, :name], include: { location: { only: [:id, :name, :ancestry], include: [setting_events: { only: [:name] }] } } },
