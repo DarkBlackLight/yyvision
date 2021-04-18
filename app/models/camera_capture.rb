@@ -24,7 +24,7 @@ class CameraCapture < ApplicationRecord
   end
 
   def update_camera_master
-    self.camera.update_columns(master_camera_capture_id: self.id, status: 'normal', updated_at: Time.now)
+    self.camera.update_columns(master_camera_capture_id: self.id, updated_at: Time.now)
   end
 
   def broadcast
