@@ -32,7 +32,8 @@ class Problem < ApplicationRecord
   def broadcast
     if self.vision?
       ActionCable.server.broadcast("problems", self.as_json(only: [:id, :created_at],
-                                                            include: [location: { only: [:id, :name] },
+                                                            include: [location: { only: [:id],
+                                                                                  include: { path: { only: [:id, :name] } } },
                                                                       problem_category: { only: [:id, :name] }]))
     end
   end
