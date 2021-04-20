@@ -7,9 +7,9 @@ module VisionConcern
   def vision_face_detect(file, confidence_threshold)
     begin
       base64 = Base64.strict_encode64(file)
-      engine = Engine.where(engine_type: :api).sample
+      engine = Engine.where(engine_type: :capture).sample
 
-      uri = URI.parse("http://#{engine.external_address}/face_detect")
+      uri = URI.parse("http://#{engine.external_address}/face_analysis")
 
       data = { data: base64, face_img: true, confidence_threshold: confidence_threshold }
 
@@ -24,47 +24,6 @@ module VisionConcern
       faces["data"]
     rescue
       logger.error 'IFACE CANNOT FACE DETECT'
-    end
-  end
-
-  def iface_faces_search(faces, source_type)
-    begin
-      engine = Engine.where(engine_type: :api).sample
-
-      uri = URI.parse("http://#{engine.external_address}/face_search")
-      data = { data: faces.as_json(only: [:features]), source_type: source_type }
-
-      http = Net::HTTP.new(uri.host, uri.port)
-      http.read_timeout = 600
-      header = { "Content-Type": "application/json" }
-      request = Net::HTTP::Post.new(uri.request_uri, header)
-      request.body = data.to_json
-      response = http.request(request)
-
-      results = JSON.parse(response.body)
-      results['data']
-    rescue
-      logger.error 'IFACE CANNOT FACE POST'
-    end
-  end
-
-  def iface_faces_post(faces, source_type)
-    Engine.where(engine_type: :api).each do |engine|
-      begin
-        uri = URI.parse("http://#{engine.external_address}/face_post")
-        data = { data: faces.as_json(only: [:id, :features]), source_type: source_type }
-
-        http = Net::HTTP.new(uri.host, uri.port)
-        http.read_timeout = 600
-        header = { "Content-Type": "application/json" }
-        request = Net::HTTP::Post.new(uri.request_uri, header)
-        request.body = data.to_json
-        response = http.request(request)
-
-        response.body
-      rescue
-        logger.error 'IFACE CANNOT FACE POST'
-      end
     end
   end
 
