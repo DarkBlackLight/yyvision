@@ -3,6 +3,10 @@ module ApiPeopleConcern
   included do
     private
 
+    def filter_params
+      params.slice(:query_name, :query_bank_id)
+    end
+
     def set_show_json(resource)
       resource.as_json(only: [:id, :name, :bank_id], include: [portraits: { only: [], methods: [:img_data] }])
     end
