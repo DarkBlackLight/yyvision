@@ -5,7 +5,7 @@ module AdminHolidaysConcern
     private
 
     def filter_params
-      params.slice()
+      params.slice(:query_created_at_from, :query_created_at_to, :query_name)
     end
 
     def resource_params
