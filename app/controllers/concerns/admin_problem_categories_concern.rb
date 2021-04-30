@@ -4,7 +4,7 @@ module AdminProblemCategoriesConcern
     private
 
     def filter_params
-      params.slice(:query_name)
+      params.slice(:query_name,  :query_level, :query_parent)
     end
 
     def resource_params
