@@ -8,7 +8,7 @@ class LocationEventCameraCapture < ApplicationRecord
 
   def create_problem_evidence
     if location_event.problem
-      img_data = camera_capture.img_data[:src].gsub!(camera_capture.engine.external_address, '172.17.0.1:8998')
+      img_data = camera_capture.img_data[:src]
       if img_data
         problem_evidence = ProblemEvidence.create(problem: self.location_event.problem)
         filename = File.basename(URI.parse(img_data).path)
