@@ -35,6 +35,7 @@ class CameraCapture < ApplicationRecord
                                                                              include: { location: { only: [:id, :name, :ancestry],
                                                                                                     include: { path: { only: [:id, :name] },
                                                                                                                setting_events: { only: [:name] } } } } },
+                                                                   bodies: { only: [:id] },
                                                                    portraits: { only: [:id, :target_confidence],
                                                                                 methods: [:img_data],
                                                                                 include: [target: { only: [],
