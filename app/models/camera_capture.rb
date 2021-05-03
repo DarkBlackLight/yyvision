@@ -32,7 +32,7 @@ class CameraCapture < ApplicationRecord
                                                                  methods: [:img_data],
                                                                  include: [
                                                                    camera: { only: [:id, :status, :name],
-                                                                             include: { location: { only: [:id, :name, :ancestry],
+                                                                             include: { location: { only: [:id, :name, :location_category_id, :ancestry],
                                                                                                     include: { path: { only: [:id, :name] },
                                                                                                                setting_events: { only: [:name] } } } } },
                                                                    bodies: { only: [:id] },
