@@ -1,6 +1,5 @@
 class ApplicationRecord < ActiveRecord::Base
   include Filterable
-  include TranslateEnum
   include VisionConcern
   include Rails.application.routes.url_helpers
   self.abstract_class = true
