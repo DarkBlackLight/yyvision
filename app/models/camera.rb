@@ -13,6 +13,9 @@ class Camera < ApplicationRecord
   after_create :setup_location
   after_destroy :setup_location
 
+  validates :rtsp, uniqueness: true
+  validates :rtsp, presence: true
+
   scope :query_name, -> (q) { where('lower(name) like lower(?)', "%#{q.downcase}%") }
   scope :query_status, ->(q) { where status: q }
   scope :query_event_id, -> (q) { joins(:event_cameras).where(event_cameras: { event_id: q }) }
