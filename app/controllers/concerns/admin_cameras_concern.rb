@@ -2,11 +2,9 @@ module AdminCamerasConcern
   extend ActiveSupport::Concern
   included do
 
-
     def stats_cameras_group_status
-      render json: {online: Camera.accessible_by(current_ability, :read).filterable(filter_params).where(status: 'normal').size, offline: Camera.accessible_by(current_ability, :read).filterable(filter_params).where(status: 'offline').size}.as_json, status: :ok
+      render json: { online: Camera.accessible_by(current_ability, :read).filterable(filter_params).where(status: 'normal').size, offline: Camera.accessible_by(current_ability, :read).filterable(filter_params).where(status: 'offline').size }.as_json, status: :ok
     end
-
 
     def upload_excel
       require 'roo'
@@ -49,7 +47,8 @@ module AdminCamerasConcern
     private
 
     def filter_params
-      params.slice(:query_marked, :query_event_id, :query_name, :query_status, :query_location_id)
+      params.slice(:query_marked, :query_event_id, :query_name, :query_status,
+                   :query_location_id_0, :query_location_id_1, :query_location_id_2, :query_location_id_3, :query_location_id_4)
     end
 
     def resource_params
