@@ -20,7 +20,7 @@ class LocationEvent < ApplicationRecord
   scope :query_location_id_2, -> (q) { joins(:location).where(:'location_id' => Location.find(q).subtree_ids) }
   scope :query_location_id_3, -> (q) { joins(:location).where(:'location_id' => Location.find(q).subtree_ids) }
   scope :query_location_id_4, -> (q) { joins(:location).where(:'location_id' => q) }
-  scope :query_location_id_5, -> (q) { joins(:location).where(:'location_id' => q) }
+  scope :query_location_id_5, -> (q) { joins(:location).where(:'location_id' => Location.find(q).parent.id) }
 
   def setup_length
     self.length = (self.active_at - self.created_at) / 1.minutes if self.active_at
