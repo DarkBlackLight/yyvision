@@ -18,7 +18,7 @@ class LocationEvent < ApplicationRecord
   scope :query_active, -> (q) { where active: q }
   scope :query_location_id_1, -> (q) { joins(:location).where(:'location_id' => q) }
   scope :query_location_id_2, -> (q) { joins(:location).where(:'location_id' => q) }
-  scope :query_location_id_3, -> (q) { joins(:location).where(:'location_id' => Location.find(q).children.ids) }
+  scope :query_location_id_3, -> (q) { joins(:location).where(:'location_id' => Location.find(q).subtree_ids) }
   scope :query_location_id_4, -> (q) { joins(:location).where(:'location_id' => q) }
   scope :query_location_id_5, -> (q) { joins(:location).where(:'location_id' => q) }
 
