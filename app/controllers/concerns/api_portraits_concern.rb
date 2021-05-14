@@ -35,7 +35,7 @@ module ApiPortraitsConcern
     end
 
     def resource_params
-      params.require(:portrait).permit(:id, :img, :source_id, :source_type, :confidence, features: [], box: [])
+      params.require(:portrait).permit(:id, :img, :engine_id, :img_url, :source_id, :source_type, :confidence, features: [], box: [])
     end
   end
 end
