@@ -4,7 +4,9 @@ module ApiProblemsConcern
     private
 
     def set_show_json(resource)
-      resource.as_json(only: [:id, :issued_at, :created_at], include: { location: { include: { path: { only: [:id, :name] } } } })
+      resource.as_json(only: [:id, :problem_status, :issued_at, :created_at],
+                       include: { location: { include: { path: { only: [:id, :name] } } },
+                                  problem_category: { only: [:id, :name] } })
     end
 
     def resource_params
