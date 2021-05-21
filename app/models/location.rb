@@ -18,17 +18,17 @@ class Location < ApplicationRecord
   has_many :actual_events, through: :location_events, class_name: 'Event', source: :event
 
   has_many :event_locations, dependent: :destroy
+  accepts_nested_attributes_for :event_locations, allow_destroy: true
   has_many :setting_events, through: :event_locations, class_name: 'Event', source: :event
 
   has_many :cameras
-
   has_many :problems
-
-  accepts_nested_attributes_for :event_locations, allow_destroy: true
 
   before_validation :setup_engine
 
   validates :name, presence: true
+
+  after_update_commit :setup_event_cameras
 
   def setup_engine
     self.engine = parent&.engine ? parent.engine : Engine.where(engine_type: :capture).first unless engine
@@ -49,4 +49,16 @@ class Location < ApplicationRecord
   def all_descendant_cameras
     Camera.where(location_id: self.descendant_ids)
   end
+
+  def setup_event_cameras
+    cameras.each do |camera|
+      event_camera_ids = []
+      event_locations.each do |event_location|
+        event_camera = EventCamera.find_or_create_by(event: event_location.event, camera: camera)
+        event_camera_ids.append(event_camera.id)
+      end
+      camera.event_cameras.where.not(id: event_camera_ids).destroy_all
+    end
+  end
+
 end
