@@ -5,22 +5,24 @@ class LocationEvent < ApplicationRecord
   belongs_to :location
   belongs_to :event
   belongs_to :problem, optional: true
+  belongs_to :master_camera_capture, class_name: 'CameraCapture', optional: true
 
   has_many :location_event_camera_captures, dependent: :destroy
-  has_many :camera_captures, through: :location_event_camera_captures
+  has_many :camera_captures, -> { order(created_at: :asc) }, through: :location_event_camera_captures
 
   before_save :setup_length
 
   after_commit :create_problem
   after_create_commit :broadcast
+  after_update_commit :setup_master_camera_capture
 
   scope :query_event_id, -> (q) { joins(:event).where(:'event_id' => q) }
   scope :query_active, -> (q) { where active: q }
-  scope :query_location_id_0, -> (q) { where(location_id: Location.find(q).subtree_ids )}
-  scope :query_location_id_1, -> (q) { where(location_id: Location.find(q).subtree_ids )}
-  scope :query_location_id_2, -> (q) { where(location_id: Location.find(q).subtree_ids )}
-  scope :query_location_id_3, -> (q) { where(location_id: Location.find(q).subtree_ids )}
-  scope :query_location_id_4, -> (q) { where(location_id: Location.find(q).subtree_ids )}
+  scope :query_location_id_0, -> (q) { where(location_id: Location.find(q).subtree_ids) }
+  scope :query_location_id_1, -> (q) { where(location_id: Location.find(q).subtree_ids) }
+  scope :query_location_id_2, -> (q) { where(location_id: Location.find(q).subtree_ids) }
+  scope :query_location_id_3, -> (q) { where(location_id: Location.find(q).subtree_ids) }
+  scope :query_location_id_4, -> (q) { where(location_id: Location.find(q).subtree_ids) }
 
   def setup_length
     self.length = (self.active_at - self.created_at) / 1.minutes if self.active_at
@@ -63,4 +65,9 @@ class LocationEvent < ApplicationRecord
     end
   end
 
+  def setup_master_camera_capture
+    unless master_camera_capture
+      self.update_column(:master_camera_capture_id, camera_captures.first.id) if camera_captures.first
+    end
+  end
 end
