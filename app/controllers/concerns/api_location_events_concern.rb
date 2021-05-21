@@ -5,8 +5,11 @@ module ApiLocationEventsConcern
 
     def set_show_json(resource)
       resource.as_json(only: [:id, :event_id, :problem_id, :active, :created_at],
-                       include: { event: { only: [:id, :name] }, location: { only: [:id, :name],
-                                                                             include: { path: { only: [:id, :name] } } } },
+                       include: {
+                         event: { only: [:id, :name] },
+                         location: { only: [:id, :name], include: { path: { only: [:id, :name] } } },
+                         camera_captures: { only: [:id], methods: :img_data }
+                       },
                        methods: [:camera_capture_ids])
     end
 
