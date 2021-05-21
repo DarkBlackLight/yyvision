@@ -14,6 +14,6 @@ class EventLocation < ApplicationRecord
   end
 
   def destroy_event_cameras
-    EventCamera.joins(:camera).where(cameras: { location: self.location }, event: self.event).destroy_all
+    EventCamera.joins(:camera).where(cameras: { location_id: self.location_id }, event: self.event_id).destroy_all
   end
 end
