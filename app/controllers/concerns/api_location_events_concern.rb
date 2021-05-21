@@ -8,7 +8,7 @@ module ApiLocationEventsConcern
                        include: {
                          event: { only: [:id, :name] },
                          location: { only: [:id, :name], include: { path: { only: [:id, :name] } } },
-                         master_camera_captures: { only: [:id], methods: :img_data }
+                         master_camera_capture: { only: [:id], methods: :img_data }
                        },
                        methods: [:camera_capture_ids])
     end
