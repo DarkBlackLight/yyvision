@@ -43,4 +43,12 @@ class Problem < ApplicationRecord
     end
   end
 
+  def img_data
+    if img.attached?
+      { src: url_for(img), filename: img.filename, content_type: img.content_type }
+    else
+      self.img_url ? { src: 'http://' + self.engine.external_address + self.img_url } : nil
+    end
+  end
+
 end
