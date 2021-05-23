@@ -3,10 +3,15 @@ module ApiProblemsConcern
   included do
     private
 
+    def filter_params
+      params.slice(:query_status)
+    end
+
     def set_show_json(resource)
-      resource.as_json(only: [:id, :problem_status, :issued_at, :created_at],
+      resource.as_json(only: [:id, :problem_status, :discover_type, :note, :issued_at, :created_at],
                        include: { location: { include: { path: { only: [:id, :name] } } },
-                                  problem_category: { only: [:id, :name] } })
+                                  problem_category: { only: [:id, :name] },
+                                  admin: { only: [:id, :name]}})
     end
 
     def resource_params
