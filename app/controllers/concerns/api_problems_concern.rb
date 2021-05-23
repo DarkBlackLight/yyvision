@@ -12,7 +12,10 @@ module ApiProblemsConcern
                        methods: [:img_data],
                        include: { location: { include: { path: { only: [:id, :name] } } },
                                   problem_category: { only: [:id, :name] },
-                                  admin: { only: [:id, :full_name]}})
+                                  admin: { only: [:id, :full_name]},
+                                  problem_evidence: { only: [:id, :created_at],
+                                               methods: [:img_data]},
+                                  })
     end
 
     def resource_params
