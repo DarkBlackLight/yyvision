@@ -12,8 +12,8 @@ module ApiProblemsConcern
                        include: { location: { include: { path: { only: [:id, :name] } } },
                                   problem_category: { only: [:id, :name] },
                                   admin: { only: [:id, :full_name]},
-                                  problem_evidence: { only: [:id, :created_at],
-                                               methods: [:img_data]},
+                                  problem_evidences: { only: [:id, :created_at],
+                                                       methods: [:img_data]},
                                   })
     end
 
