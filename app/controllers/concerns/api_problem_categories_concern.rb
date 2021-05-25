@@ -8,7 +8,8 @@ module ApiProblemCategoriesConcern
     end
 
     def set_show_json(resource)
-      resource.as_json()
+      resource.as_json(only: [:id, :name],
+          )
     end
 
     def resource_params
