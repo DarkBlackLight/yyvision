@@ -18,7 +18,7 @@ module ApiProblemsConcern
     end
 
     def resource_params
-      params.require(:problem).permit(:location_id, :status, :issued_at, :problem_category_id)
+      params.require(:problem).permit(:location_id, :status, :issued_at, :problem_category_id, :note)
     end
 
   end
