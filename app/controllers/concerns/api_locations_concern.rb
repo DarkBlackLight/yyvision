@@ -4,7 +4,11 @@ module ApiLocationsConcern
     private
 
     def filter_params
-      params.slice()
+      params.slice(:query_physical)
+    end
+
+    def set_index_json(resources)
+      set_show_json(resources.includes([:event_locations, :cameras => :event_cameras]))
     end
 
     def set_show_json(resource)

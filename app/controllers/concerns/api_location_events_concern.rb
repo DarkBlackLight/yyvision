@@ -4,7 +4,7 @@ module ApiLocationEventsConcern
     private
 
     def set_show_json(resource)
-      resource.as_json(only: [:id, :event_id, :problem_id, :active, :active_at, :created_at],
+      resource.as_json(only: [:id, :event_id, :problem_id, :active, :length, :active_at, :created_at],
                        include: {
                          event: { only: [:id, :name] },
                          location: { only: [:id, :name], include: { path: { only: [:id, :name] } } },
