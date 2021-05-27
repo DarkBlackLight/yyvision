@@ -8,10 +8,14 @@ module ApiLocationsConcern
     end
 
     def set_show_json(resource)
-      resource.as_json(only: [:name, :id, :ancestry],
-                       include: { parent: { only: [:id, :name] },},
-                       include: { location_level: { only: [:id, :name, :index] },},
-                       )
+      resource.as_json(only: [:id, :name], methods: [:setting_event_ids],
+                       include: {
+                         parent: { only: [:id, :name] },
+                         location_level: { only: [:id, :name, :index] },
+                         cameras: { only: [:id, :rtsp, :status, :name, :enabled, :location_id, :confidence],
+                                    include: { event_cameras: { only: [:event_id, :box_a, :box_b, :box_c, :box_d, :line_a, :line_b] } } },
+                       })
+
     end
 
     def resource_params
