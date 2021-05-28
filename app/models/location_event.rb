@@ -33,10 +33,13 @@ class LocationEvent < ApplicationRecord
 
       dest_location = self.location.path.query_location_level_id(4).first
 
-      self.problem = Problem.create(issued_at: self.created_at,
-                                    location: dest_location ? dest_location : self.location,
+      self.problem = Problem.where(problem_category_id: self.event.problem_category_id,
+                                   location: dest_location ? dest_location : self.location)
+                            .query_from_date((self.created_at - self.event.interval.minutes).strftime('%F %T')).first
+
+      self.problem = Problem.create(location: dest_location ? dest_location : self.location,
                                     problem_category_id: self.event.problem_category_id,
-                                    admin: Admin.first) unless self.problem
+                                    issued_at: self.created_at, admin: Admin.first) unless self.problem
 
       self.save
 
