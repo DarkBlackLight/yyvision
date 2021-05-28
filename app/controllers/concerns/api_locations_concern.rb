@@ -8,7 +8,7 @@ module ApiLocationsConcern
     end
 
     def set_index_json(resources)
-      set_show_json(resources.includes([:event_locations, :cameras => :event_cameras]))
+      set_show_json(resources.includes([:event_locations, :parent, :cameras => :event_cameras]))
     end
 
     def set_show_json(resource)
@@ -16,8 +16,8 @@ module ApiLocationsConcern
                        include: {
                          parent: { only: [:id, :name] },
                          location_level: { only: [:id, :name, :index] },
-                         cameras: { only: [:id, :rtsp, :status, :name, :enabled, :location_id, :confidence],
-                                    include: { event_cameras: { only: [:event_id, :box_a, :box_b, :box_c, :box_d, :line_a, :line_b] } } },
+                         cameras: { only: [:id, :rtsp, :status, :name, :enabled, :location_id],
+                                    include: { event_cameras: { only: [:event_id, :box_a, :box_b, :box_c, :box_d, :line_a, :line_b, :confidence] } } },
                        })
 
     end
