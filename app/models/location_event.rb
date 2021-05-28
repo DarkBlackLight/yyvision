@@ -29,15 +29,12 @@ class LocationEvent < ApplicationRecord
   end
 
   def create_problem
-    if !problem && self.length >= self.event.problem_tolerance
+    if !problem && active == true && self.length >= self.event.problem_tolerance
 
-      self.problem = Problem.where(location: self.location,
-                                   problem_category_id: self.event.problem_category_id,
-                                   admin: Admin.first)
-                            .query_from_date((self.created_at - self.event.interval.minutes).strftime('%F %T')).first
+      dest_location = self.location.path.query_location_level_id(4).first
 
       self.problem = Problem.create(issued_at: self.created_at,
-                                    location: self.location,
+                                    location: dest_location ? dest_location : self.location,
                                     problem_category_id: self.event.problem_category_id,
                                     admin: Admin.first) unless self.problem
 
