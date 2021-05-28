@@ -13,8 +13,8 @@ class LocationEvent < ApplicationRecord
   before_save :setup_length
 
   after_commit :create_problem
-  after_create_commit :broadcast
   after_commit :setup_master_camera_capture
+  after_create_commit :broadcast
 
   scope :query_event_id, -> (q) { joins(:event).where(:'event_id' => q) }
   scope :query_active, -> (q) { where active: q }
