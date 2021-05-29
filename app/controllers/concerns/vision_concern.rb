@@ -51,7 +51,7 @@ module VisionConcern
       milvus_address = ENV['MILVUS_ADDRESS'] ? ENV['MILVUS_ADDRESS'] : 'localhost:19121'
 
       uri = URI.parse("http://#{milvus_address}/collections/#{collection_name}/vectors")
-      data = { ids: [vector_id.to_s] }
+      data = { delete: { ids: [vector_id.to_s] } }
 
       http = Net::HTTP.new(uri.host, uri.port)
       http.read_timeout = 600
@@ -63,7 +63,7 @@ module VisionConcern
       response.body
     rescue => e
       puts e
-      puts 'MILVUS CANNOT DROP COLLECTION'
+      puts 'MILVUS CANNOT DELETE VECTOR'
     end
   end
 
