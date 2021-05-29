@@ -23,6 +23,7 @@ class Portrait < ApplicationRecord
   after_destroy :update_person
 
   after_create_commit :milvus_setup
+  after_destroy_commit :milvus_destroy
   after_commit :broadcast
 
   validates :features, presence: true
@@ -51,6 +52,10 @@ class Portrait < ApplicationRecord
 
   def milvus_setup
     milvus_create_vector(self.source_type, self) if self.source_type == 'Person' || self.source_type == 'CameraCapture'
+  end
+
+  def milvus_destroy
+    milvus_delete_vector(self.source_type, self.id) if self.source_type == 'Person' || self.source_type == 'CameraCapture'
   end
 
   def broadcast
