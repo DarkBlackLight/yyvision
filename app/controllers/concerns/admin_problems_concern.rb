@@ -5,7 +5,7 @@ module AdminProblemsConcern
     private
 
     def filter_params
-      params.slice(:query_discover_type, :query_location_id_0, :query_location_id_1, :query_location_id_2, :query_location_id_3, :query_location_id_4, :query_problem_status, :query_problem_category_id, :query_from_date, :query_to_date, :query_admin_id)
+      params.slice(:query_problem_status_arr, :query_discover_type, :query_location_id_0, :query_location_id_1, :query_location_id_2, :query_location_id_3, :query_location_id_4, :query_problem_status, :query_problem_category_id, :query_from_date, :query_to_date, :query_admin_id)
     end
 
     def resource_params
