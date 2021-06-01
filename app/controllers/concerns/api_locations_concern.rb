@@ -17,7 +17,7 @@ module ApiLocationsConcern
                          parent: { only: [:id, :name] },
                          location_level: { only: [:id, :name, :index] },
                          cameras: { only: [:id, :rtsp, :status, :name, :enabled, :location_id],
-                                    include: { event_cameras: { only: [:event_id, :box_a, :box_b, :box_c, :box_d, :line_a, :line_b, :confidence] } } },
+                                    include: { event_cameras: { only: [:event_id, :box_a, :box_b, :box_c, :box_d, :line_a, :line_b, :confidence, :threshold] } } },
                        })
 
     end
