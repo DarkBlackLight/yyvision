@@ -17,11 +17,11 @@ class Portrait < ApplicationRecord
   has_one_attached :img
 
   before_create :format_features
-  before_create :milvus_search
 
   after_save :update_person
   after_destroy :update_person
 
+  after_create_commit :milvus_search
   after_create_commit :milvus_setup
   after_destroy_commit :milvus_destroy
   after_commit :broadcast
@@ -33,20 +33,30 @@ class Portrait < ApplicationRecord
     self.box = self.box.map { |box| box.to_f }
   end
 
-  def milvus_search
-    if self.source_type == 'CameraCapture'
-      vectors = milvus_search_vectors('Person', self, 1)
-      if vectors.size > 0
-        self.target_id = vectors[0]["id"]
-        self.target_confidence = milvus_confidence(vectors[0]["distance"])
-      end
-    end
-  end
-
   def update_person
     if self.source_type == 'Person'
       self.source.master_portrait = self.source.portraits.order(:index).first
       self.source.save
+    end
+  end
+
+  def milvus_search
+    if self.source_type == 'CameraCapture'
+      vectors = milvus_search_vectors('Person', self, 1)
+      if vectors.size > 0
+        target_confidence = milvus_confidence(vectors[0]["distance"])
+        self.update_columns({ target_id: vectors[0]["id"], target_confidence: target_confidence })
+
+        if self.target&.person
+          attendances = target.person.attendances
+                              .query_created_at_from(Time.zone.now.beginning_of_day.strftime('%F %T'))
+                              .query_created_at_to(Time.zone.now.end_of_day.strftime('%F %T'))
+
+          if attendances.size < 1
+            Attendance.create(person: target.person, portrait: self)
+          end
+        end
+      end
     end
   end
 

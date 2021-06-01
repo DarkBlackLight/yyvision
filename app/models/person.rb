@@ -7,6 +7,8 @@ class Person < ApplicationRecord
   has_many :portraits, as: :source, dependent: :destroy
   accepts_nested_attributes_for :portraits, allow_destroy: true
 
+  has_many :attendances, dependent: :destroy
+
   has_many :bank_people, dependent: :destroy
   has_many :banks, through: :bank_people
 
