@@ -22,7 +22,8 @@ module VisionConcern
 
       faces = JSON.parse(response.body)
       faces["data"]
-    rescue
+    rescue => e
+      puts e
       logger.error 'IFACE CANNOT FACE DETECT'
     end
   end
