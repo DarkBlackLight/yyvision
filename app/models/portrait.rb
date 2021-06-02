@@ -47,13 +47,13 @@ class Portrait < ApplicationRecord
         target_confidence = milvus_confidence(vectors[0]["distance"])
         self.update_columns({ target_id: vectors[0]["id"], target_confidence: target_confidence })
 
-        if self.target&.person
+        if self.target&.person && target_confidence >= 0.9
           attendances = target.person.attendances
                               .query_created_at_from(Time.zone.now.beginning_of_day.strftime('%F %T'))
                               .query_created_at_to(Time.zone.now.end_of_day.strftime('%F %T'))
 
           if attendances.size < 1
-            Attendance.create(person: target.person, portrait: self)
+            Attendance.create(person: target.person, portrait: self, confidence: target_confidence)
           end
         end
       end
