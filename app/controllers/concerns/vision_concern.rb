@@ -90,7 +90,7 @@ module VisionConcern
   end
 
   def milvus_confidence(distance)
-    1 / (1 + Math.exp(6 * -distance.to_f.abs))
+    1 / (1 + Math.exp(4 * -distance.to_f.abs))
   end
 
 end
