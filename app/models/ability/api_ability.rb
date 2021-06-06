@@ -7,6 +7,7 @@ class Ability::ApiAbility
       if user.source.class.name == 'Admin'
         can :manage, Bank
         can :manage, Person
+        can :manage, Portrait
       end
 
       if user.source.class.name == 'Engine'
