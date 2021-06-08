@@ -48,7 +48,6 @@ class Portrait < ApplicationRecord
         target_confidence = milvus_confidence(vectors[0]["distance"])
 
         self.update_columns(target_id: vectors[0]["id"], target_confidence: target_confidence)
-        self.reload
 
         if self.target && self.target.source_type == 'Person' && target_confidence >= 0.9
           attendances = self.target.source.attendances
