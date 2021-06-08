@@ -22,7 +22,8 @@ module VisionConcern
 
       faces = JSON.parse(response.body)
       faces["data"]
-    rescue
+    rescue => e
+      logger.error e
       logger.error 'IFACE CANNOT FACE DETECT'
     end
   end
@@ -42,6 +43,7 @@ module VisionConcern
       response = http.request(request)
       response.body
     rescue => e
+      logger.error e
       logger.error 'MILVUS CANNOT CREATE VECTOR'
     end
   end
@@ -83,7 +85,8 @@ module VisionConcern
 
       results = JSON.parse(response.body)
       results['result'][0] ? results['result'][0] : []
-    rescue
+    rescue => e
+      logger.error e
       logger.error 'MILVUS CANNOT SEARCH IN COLLECTION'
       []
     end
