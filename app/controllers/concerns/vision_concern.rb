@@ -62,8 +62,8 @@ module VisionConcern
       response = http.request(request)
       response.body
     rescue => e
-      puts e
-      puts 'MILVUS CANNOT DELETE VECTOR'
+      logger.error e
+      logger.error 'MILVUS CANNOT DELETE VECTOR'
     end
   end
 
