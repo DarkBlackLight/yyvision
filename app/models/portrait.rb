@@ -22,6 +22,7 @@ class Portrait < ApplicationRecord
   after_save :update_person
   after_destroy :update_person
 
+  after_create_commit :setup_attendance
   after_create_commit :milvus_setup
   after_destroy_commit :milvus_destroy
   after_commit :broadcast
@@ -41,15 +42,19 @@ class Portrait < ApplicationRecord
         target_confidence = milvus_confidence(vectors[0]["distance"])
         self.target_id = vectors[0]["id"]
         self.target_confidence = target_confidence
+      end
+    end
+  end
 
-        if self.target && self.target.source_type == 'Person' && target_confidence >= 0.9
-          attendances = self.target.source.attendances
-                            .query_created_at_from(Time.zone.now.beginning_of_day.strftime('%F %T'))
-                            .query_created_at_to(Time.zone.now.end_of_day.strftime('%F %T'))
+  def setup_attendance
+    if self.source_type == 'CameraCapture'
+      if self.target && self.target.source_type == 'Person' && target_confidence >= 0.9
+        attendances = self.target.source.attendances
+                          .query_created_at_from(Time.zone.now.beginning_of_day.strftime('%F %T'))
+                          .query_created_at_to(Time.zone.now.end_of_day.strftime('%F %T'))
 
-          if attendances.size < 1
-            Attendance.create(person: self.target.source, portrait: self, confidence: target_confidence)
-          end
+        if attendances.size < 1
+          Attendance.create(person: target.source, portrait: self, confidence: target_confidence)
         end
       end
     end
