@@ -21,8 +21,8 @@ class Location < ApplicationRecord
   accepts_nested_attributes_for :event_locations, allow_destroy: true
   has_many :setting_events, through: :event_locations, class_name: 'Event', source: :event
 
-  has_many :cameras
-  has_many :problems
+  has_many :cameras, dependent: :destroy
+  has_many :problems, dependent: :destroy
 
   before_validation :setup_engine
 
