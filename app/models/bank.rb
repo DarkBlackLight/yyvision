@@ -6,4 +6,10 @@ class Bank < ApplicationRecord
 
   has_many :bank_people, dependent: :destroy
   has_many :people, through: :bank_people
+
+  after_destroy_commit :destroy_all_children
+
+  def destroy_all_children
+    self.children.destroy_all
+  end
 end
