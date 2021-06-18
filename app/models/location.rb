@@ -28,7 +28,7 @@ class Location < ApplicationRecord
 
   validates :name, presence: true
 
-  enum camera_type: [:police_station, :checkpoint, :magazine]
+  enum location_type: [:police_station, :checkpoint, :magazine]
 
   after_update_commit :setup_event_cameras
 
