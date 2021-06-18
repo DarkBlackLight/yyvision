@@ -31,6 +31,7 @@ class Location < ApplicationRecord
   enum location_type: [:police_station, :checkpoint, :magazine]
 
   after_update_commit :setup_event_cameras
+  after_commit :setup_children_location_type
 
   def setup_engine
     self.engine = parent&.engine ? parent.engine : Engine.where(engine_type: :capture).first unless engine
@@ -60,6 +61,12 @@ class Location < ApplicationRecord
         event_camera_ids.append(event_camera.id)
       end
       camera.event_cameras.where.not(id: event_camera_ids).destroy_all
+    end
+  end
+
+  def setup_children_location_type
+    if self.previous_changes[:location_type]
+      self.children.update_all(location_type: self.location_type)
     end
   end
 
