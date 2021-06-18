@@ -9,7 +9,7 @@ module AdminLocationsConcern
     end
 
     def resource_params
-      params.require(:location).permit(:camera_type, :lat, :lon, :name, :parent_id, :engine_id, :location_level_id, :location_category_id, setting_event_ids: [])
+      params.require(:location).permit(:location_type, :lat, :lon, :name, :parent_id, :engine_id, :location_level_id, :location_category_id, setting_event_ids: [])
     end
   end
 end
