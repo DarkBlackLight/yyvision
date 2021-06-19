@@ -42,7 +42,9 @@ class LocationEvent < ApplicationRecord
 
       self.problem = Problem.create(location: dest_location ? dest_location : self.location,
                                     problem_category_id: self.event.problem_category_id,
-                                    issued_at: self.created_at, admin: Admin.first) unless self.problem
+                                    issued_at: self.created_at,
+                                    active_at: self.active_at,
+                                    admin: Admin.first) unless self.problem
 
       self.save
 
@@ -60,7 +62,7 @@ class LocationEvent < ApplicationRecord
   end
 
   def broadcast
-    if active
+    if active && (ENV['NEED_LOCATION_EVENT_VERIFIED'] != '1' || self.verified)
       ActionCable.server.broadcast("location_events", self.as_json(only: [:id, :created_at],
                                                                    include: [location: { only: [:id],
                                                                                          include: { path: { only: [:id, :name] } } },

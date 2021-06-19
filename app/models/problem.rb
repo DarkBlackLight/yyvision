@@ -6,11 +6,11 @@ class Problem < ApplicationRecord
   scope :query_from_date, -> (q) { where(issued_at: Time.zone.parse(q)..) }
   scope :query_to_date, -> (q) { where(issued_at: ..Time.zone.parse(q)) }
   scope :query_admin_id, -> (q) { where(admin_id: q) }
-  scope :query_location_id_0, -> (q) { where(location_id: Location.find(q).subtree_ids )}
-  scope :query_location_id_1, -> (q) { where(location_id: Location.find(q).subtree_ids )}
-  scope :query_location_id_2, -> (q) { where(location_id: Location.find(q).subtree_ids )}
-  scope :query_location_id_3, -> (q) { where(location_id: Location.find(q).subtree_ids )}
-  scope :query_location_id_4, -> (q) { where(location_id: Location.find(q).subtree_ids )}
+  scope :query_location_id_0, -> (q) { where(location_id: Location.find(q).subtree_ids) }
+  scope :query_location_id_1, -> (q) { where(location_id: Location.find(q).subtree_ids) }
+  scope :query_location_id_2, -> (q) { where(location_id: Location.find(q).subtree_ids) }
+  scope :query_location_id_3, -> (q) { where(location_id: Location.find(q).subtree_ids) }
+  scope :query_location_id_4, -> (q) { where(location_id: Location.find(q).subtree_ids) }
 
   belongs_to :problem_category, optional: true
   belongs_to :admin
@@ -30,6 +30,7 @@ class Problem < ApplicationRecord
 
   def setup_issued_at
     self.issued_at = Time.zone.now unless self.issued_at
+    self.active_at = Time.zone.now unless self.active_at
   end
 
   enum discover_type: [:vision, :search, :manual, :field, :other]

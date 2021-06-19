@@ -14,6 +14,8 @@ class LocationEventCameraCapture < ApplicationRecord
         filename = File.basename(URI.parse(img_data).path)
         file = URI.open(img_data)
         problem_evidence.img.attach(io: file, filename: filename)
+
+        location_event.problem.update_column(:active_at, location_event.active_at)
       end
     end
   end
