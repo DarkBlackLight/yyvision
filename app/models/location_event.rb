@@ -29,7 +29,10 @@ class LocationEvent < ApplicationRecord
   end
 
   def create_problem
-    if !problem && active == true && self.length >= self.event.problem_tolerance && self.event.problem_category_id
+    if_create_problem = !problem && active == true && self.length >= self.event.problem_tolerance && self.event.problem_category_id
+    if_create_problem = if_create_problem && (ENV['NEED_LOCATION_EVENT_VERIFIED'] != '1' || self.verified)
+
+    if if_create_problem
 
       dest_location = self.location.path.query_location_level_id(4).first
 
