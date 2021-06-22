@@ -35,6 +35,10 @@ module VisionConcern
       uri = URI.parse("http://#{milvus_address}/collections/#{collection_name}/vectors")
       data = { vectors: [portrait.features], ids: [portrait.id.to_s] }
 
+      if collection_name == 'CameraCapture'
+        data[:partition_tag] = portrait.created_at.strftime('%F')
+      end
+
       http = Net::HTTP.new(uri.host, uri.port)
       http.read_timeout = 600
       header = { "Content-Type": "application/json" }
