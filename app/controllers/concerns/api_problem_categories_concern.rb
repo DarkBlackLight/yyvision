@@ -7,7 +7,7 @@ module ApiProblemCategoriesConcern
       params.slice()
     end
 
-    def set_show_json(resource)
+    def show_json(resource)
       resource.as_json(only: [:name, :id, :level, :ancestry],
                        include: { parent: { only: [:id, :name] },
                        })

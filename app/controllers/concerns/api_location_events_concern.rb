@@ -3,15 +3,15 @@ module ApiLocationEventsConcern
   included do
     private
 
-    def set_create_success_json(resource)
+    def create_json(resource)
       resource.as_json(only: [:id, :event_id, :problem_id, :active, :length, :active_at, :created_at])
     end
 
-    def set_update_success_json(resource)
+    def update_json(resource)
       resource.as_json(only: [:id, :event_id, :problem_id, :active, :length, :active_at, :created_at])
     end
 
-    def set_show_json(resource)
+    def show_json(resource)
       resource.as_json(only: [:id, :event_id, :problem_id, :active, :length, :active_at, :created_at],
                        include: {
                          event: { only: [:id, :name] },

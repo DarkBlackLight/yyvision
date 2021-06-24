@@ -7,7 +7,7 @@ module ApiBanksConcern
       params.slice(:query_name, :query_ancestry)
     end
 
-    def set_show_json(resource)
+    def show_json(resource)
       resource.as_json(only: [:id, :index, :name, :ancestry])
     end
 

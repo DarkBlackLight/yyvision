@@ -3,7 +3,7 @@ module ApiCamerasConcern
   included do
     private
 
-    def set_show_json(resource)
+    def show_json(resource)
       resource.as_json(only: [:id, :rtsp, :status, :name, :enabled, :location_id])
     end
 

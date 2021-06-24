@@ -7,11 +7,11 @@ module ApiLocationsConcern
       params.slice(:query_physical)
     end
 
-    def set_index_json(resources)
-      set_show_json(resources.includes([:event_locations, :cameras => :event_cameras]))
+    def index_json(resources)
+      show_json(resources.includes([:event_locations, :cameras => :event_cameras]))
     end
 
-    def set_show_json(resource)
+    def show_json(resource)
       resource.as_json(only: [:id, :name], methods: [:setting_event_ids],
                        include: {
                          parent: { only: [:id, :name] },

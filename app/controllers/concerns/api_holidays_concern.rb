@@ -4,11 +4,7 @@ module ApiHolidaysConcern
 
     private
 
-    def filter_params
-      params.slice()
-    end
-
-    def set_show_json(resource)
+    def show_json(resource)
       resource.as_json(only: [:id, :off_date])
     end
 

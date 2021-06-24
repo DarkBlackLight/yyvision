@@ -30,7 +30,7 @@ module ApiPortraitsConcern
       params.slice(:query_source_type)
     end
 
-    def set_show_json(resource)
+    def show_json(resource)
       resource.as_json(only: [:id, :features])
     end
 
