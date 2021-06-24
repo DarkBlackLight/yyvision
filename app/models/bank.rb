@@ -8,6 +8,7 @@ class Bank < ApplicationRecord
   has_many :people, through: :bank_people
 
   after_commit :setup_children_tag
+  after_commit :setup_people_tag
   after_destroy_commit :destroy_all_children
 
   def destroy_all_children
@@ -19,6 +20,14 @@ class Bank < ApplicationRecord
       self.children.update_all(if_black: self.if_black)
     elsif self.self.previous_changes[:if_red]
       self.children.update_all(if_red: self.if_red)
+    end
+  end
+
+  def setup_people_tag
+    if self.previous_changes[:if_black]
+      self.people.update_all(if_black: self.if_black)
+    elsif self.self.previous_changes[:if_red]
+      self.people.update_all(if_red: self.if_red)
     end
   end
 end

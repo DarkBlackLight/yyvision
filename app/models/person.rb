@@ -12,6 +12,11 @@ class Person < ApplicationRecord
   has_many :bank_people, dependent: :destroy
   has_many :banks, through: :bank_people
 
+  before_validation :setup_tag
   validates :name, presence: true
 
+  def setup_tag
+    self.if_black = banks.where(if_black: true).size > 0
+    self.if_red = banks.where(if_red: true).size > 0
+  end
 end
