@@ -18,7 +18,7 @@ class Bank < ApplicationRecord
   def setup_children_tag
     if self.previous_changes[:if_black]
       self.children.update_all(if_black: self.if_black)
-    elsif self.self.previous_changes[:if_red]
+    elsif self.previous_changes[:if_red]
       self.children.update_all(if_red: self.if_red)
     end
   end
@@ -26,7 +26,7 @@ class Bank < ApplicationRecord
   def setup_people_tag
     if self.previous_changes[:if_black]
       self.people.update_all(if_black: self.if_black)
-    elsif self.self.previous_changes[:if_red]
+    elsif self.previous_changes[:if_red]
       self.people.update_all(if_red: self.if_red)
     end
   end
