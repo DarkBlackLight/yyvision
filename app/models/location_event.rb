@@ -64,9 +64,13 @@ class LocationEvent < ApplicationRecord
   def broadcast
     if active && (ENV['NEED_LOCATION_EVENT_VERIFIED'] != '1' || self.verified)
       ActionCable.server.broadcast("location_events", self.as_json(only: [:id, :created_at],
-                                                                   include: [location: { only: [:id],
-                                                                                         include: { path: { only: [:id, :name] } } },
-                                                                             event: { only: [:id, :name] }]))
+                                                                   include: [
+                                                                     master_camera_capture: {
+                                                                       only: [:id], methods: :img_data
+                                                                     },
+                                                                     location: { only: [:id],
+                                                                                 include: { path: { only: [:id, :name] } } },
+                                                                     event: { only: [:id, :name] }]))
     end
   end
 
