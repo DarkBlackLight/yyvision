@@ -18,5 +18,6 @@ class Person < ApplicationRecord
   def setup_tag
     self.if_black = banks.where(if_black: true).size > 0
     self.if_red = banks.where(if_red: true).size > 0
+    self.if_attendance = banks.where(if_attendance: true).size > 0
   end
 end

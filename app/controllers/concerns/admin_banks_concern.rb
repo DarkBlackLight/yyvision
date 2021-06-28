@@ -8,7 +8,7 @@ module AdminBanksConcern
     end
 
     def resource_params
-      params.require(:bank).permit(:name, :parent_id, :index, :if_red, :if_black)
+      params.require(:bank).permit(:name, :parent_id, :index, :if_red, :if_black, :if_attendance)
     end
   end
 end

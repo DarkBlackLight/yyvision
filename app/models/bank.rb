@@ -20,6 +20,8 @@ class Bank < ApplicationRecord
       self.children.update_all(if_black: self.if_black)
     elsif self.previous_changes[:if_red]
       self.children.update_all(if_red: self.if_red)
+    elsif self.previous_changes[:if_attendance]
+      self.children.update_all(if_attendance: self.if_attendance)
     end
   end
 
@@ -28,6 +30,8 @@ class Bank < ApplicationRecord
       self.people.update_all(if_black: self.if_black)
     elsif self.previous_changes[:if_red]
       self.people.update_all(if_red: self.if_red)
+    elsif self.previous_changes[:if_attendance]
+      self.people.update_all(if_attendance: self.if_attendance)
     end
   end
 end
