@@ -61,6 +61,12 @@ class LocationEvent < ApplicationRecord
     end
   end
 
+  def setup_master_camera_capture
+    unless master_camera_capture
+      self.update_column(:master_camera_capture_id, camera_captures.first.id) if camera_captures.first
+    end
+  end
+
   def broadcast
     if active && (ENV['NEED_LOCATION_EVENT_VERIFIED'] != '1' || self.verified)
       ActionCable.server.broadcast("location_events", self.as_json(only: [:id, :created_at],
@@ -74,9 +80,4 @@ class LocationEvent < ApplicationRecord
     end
   end
 
-  def setup_master_camera_capture
-    unless master_camera_capture
-      self.update_column(:master_camera_capture_id, camera_captures.first.id) if camera_captures.first
-    end
-  end
 end
