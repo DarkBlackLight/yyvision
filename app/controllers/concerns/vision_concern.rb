@@ -87,7 +87,7 @@ module VisionConcern
       }
 
       if tags.size > 0
-        data[:search][:partition_tag] = tags
+        data[:search][:partition_tags] = tags
       end
 
       http = Net::HTTP.new(uri.host, uri.port)
