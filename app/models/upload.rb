@@ -32,6 +32,7 @@ class Upload < ApplicationRecord
             source_id: self.id,
             source_type: 'Upload'
           )
+
           portrait.img.attach(io: face_file, filename: 'face.jpg')
         ensure
           face_file.close

@@ -73,12 +73,22 @@ module VisionConcern
     end
   end
 
-  def milvus_search_vectors(collection_name, portrait, topk = 10)
+  def milvus_search_vectors(collection_name, portrait, topk = 10, tags = [])
     begin
       milvus_address = ENV['MILVUS_ADDRESS'] ? ENV['MILVUS_ADDRESS'] : 'localhost:19121'
 
       uri = URI.parse("http://#{milvus_address}/collections/#{collection_name}/vectors")
-      data = { search: { topk: topk, vectors: [portrait.features], params: {} } }
+      data = {
+        search: {
+          topk: topk,
+          vectors: [portrait.features],
+          params: {}
+        }
+      }
+
+      if tags.size > 0
+        data[:search][:partition_tag] = tags
+      end
 
       http = Net::HTTP.new(uri.host, uri.port)
       http.read_timeout = 600
