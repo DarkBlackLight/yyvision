@@ -14,7 +14,6 @@ class LocationEvent < ApplicationRecord
 
   after_commit :create_problem
   after_commit :setup_master_camera_capture
-  after_create_commit :broadcast
 
   scope :query_event_id, -> (q) { joins(:event).where(:'event_id' => q) }
   scope :query_active, -> (q) { where active: q }
@@ -64,20 +63,16 @@ class LocationEvent < ApplicationRecord
   def setup_master_camera_capture
     unless master_camera_capture
       self.update_column(:master_camera_capture_id, camera_captures.first.id) if camera_captures.first
+      if active && (ENV['NEED_LOCATION_EVENT_VERIFIED'] != '1' || self.verified)
+        ActionCable.server.broadcast("location_events", self.as_json(only: [:id, :created_at],
+                                                                     include: [
+                                                                       master_camera_capture: {
+                                                                         only: [:id], methods: :img_data
+                                                                       },
+                                                                       location: { only: [:id],
+                                                                                   include: { path: { only: [:id, :name] } } },
+                                                                       event: { only: [:id, :name] }]))
+      end
     end
   end
-
-  def broadcast
-    if active && (ENV['NEED_LOCATION_EVENT_VERIFIED'] != '1' || self.verified)
-      ActionCable.server.broadcast("location_events", self.as_json(only: [:id, :created_at],
-                                                                   include: [
-                                                                     master_camera_capture: {
-                                                                       only: [:id], methods: :img_data
-                                                                     },
-                                                                     location: { only: [:id],
-                                                                                 include: { path: { only: [:id, :name] } } },
-                                                                     event: { only: [:id, :name] }]))
-    end
-  end
-
 end
