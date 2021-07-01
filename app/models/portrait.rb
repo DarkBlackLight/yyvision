@@ -48,7 +48,7 @@ class Portrait < ApplicationRecord
 
   def setup_attendance
     if self.source_type == 'CameraCapture'
-      if self.target && self.target.source_type == 'Person' && target_confidence >= 0.9
+      if self.target && self.target.source_type == 'Person' && target_confidence >= 0.88
         attendances = self.target.source.attendances
                           .query_created_at_from(Time.zone.now.beginning_of_day.strftime('%F %T'))
                           .query_created_at_to(Time.zone.now.end_of_day.strftime('%F %T'))
