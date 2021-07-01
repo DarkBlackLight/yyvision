@@ -18,7 +18,7 @@ class PortraitSearch < ApplicationRecord
       end
     end
 
-    vectors = milvus_search_vectors(self.source_type, self.portrait, 1000)
+    vectors = milvus_search_vectors(self.source_type, self.portrait, self.size)
     vectors.each do |vector|
       if milvus_confidence(vector["distance"]) >= self.confidence
         PortraitSearchResult.create(portrait_search_id: self.id,
