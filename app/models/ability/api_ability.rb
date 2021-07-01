@@ -22,5 +22,7 @@ class Ability::ApiAbility
         can [:create, :update], LocationEvent
       end
     end
+
+    can :auto_capture, CameraCapture
   end
 end
