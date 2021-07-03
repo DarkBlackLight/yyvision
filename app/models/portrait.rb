@@ -25,7 +25,7 @@ class Portrait < ApplicationRecord
   after_create_commit :setup_attendance
   after_create_commit :milvus_setup
   after_destroy_commit :milvus_destroy
-  after_commit :broadcast
+  after_create_commit :broadcast
 
   validates :features, presence: true
 
