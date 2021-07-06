@@ -7,7 +7,7 @@ class Upload < ApplicationRecord
   enum upload_type: [:portrait]
 
   after_create_commit :setup_portraits
-  has_one_attached :img
+  has_one_attached :img, dependent: :purge_later
 
   def img_data
     img.attached? ? { src: url_for(img), filename: img.filename, content_type: img.content_type } : nil
