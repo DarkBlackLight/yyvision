@@ -12,7 +12,7 @@ class CameraCapture < ApplicationRecord
   has_many :location_event_camera_captures, :dependent => :destroy
   has_many :location_events, through: :location_event_camera_captures
 
-  has_one_attached :img, dependent: :purge
+  has_one_attached :img
 
   before_validation :setup_location
   after_create :update_camera_master

@@ -14,7 +14,7 @@ class Portrait < ApplicationRecord
 
   has_many :portrait_searches, :dependent => :destroy
 
-  has_one_attached :img, dependent: :purge
+  has_one_attached :img
 
   before_create :format_features
   before_create :milvus_search
