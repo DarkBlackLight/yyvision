@@ -5,7 +5,10 @@ class Location < ApplicationRecord
   scope :query_name, -> (q) { where('lower(name) like lower(?)', "%#{q.downcase}%") }
   scope :query_event_id, -> (q) { joins(:event_locations).where(event_locations: { event_id: q }) }
   scope :query_location_level_name, -> (q) { joins(:location_level).where(location_levels: { name: q }) }
+  scope :query_location_category_id, -> (q) { where(location_category_id: q) }
   scope :query_location_level_id, -> (q) { where(location_level_id: q) }
+  scope :query_location_type, -> (q) { where(location_type: q) }
+  scope :query_physical, -> (q) { where(physical: q) }
   scope :query_ancestry, ->(q) { where ancestry: q }
   scope :query_parent_id, -> (q) { children_of(q) }
 

@@ -5,7 +5,7 @@ module AdminLocationsConcern
     private
 
     def filter_params
-      params.slice(:query_location_level_id, :query_location_level_name, :query_event_id, :query_name, :query_ancestry, :query_parent_id)
+      params.slice(:query_location_level_id, :query_location_level_name, :query_event_id, :query_name, :query_ancestry, :query_parent_id, :query_location_category_id, :query_location_type, :query_physical)
     end
 
     def resource_params
