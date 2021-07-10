@@ -33,6 +33,8 @@ class Location < ApplicationRecord
 
   enum location_type: [:police_station, :checkpoint, :magazine]
 
+  has_one_attached :map
+
   after_update_commit :setup_event_cameras
   after_commit :setup_children_location_type
 
