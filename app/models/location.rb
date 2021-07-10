@@ -75,4 +75,7 @@ class Location < ApplicationRecord
     end
   end
 
+  def map_data
+    map.attached? ? { src: url_for(map), filename: map.filename, content_type: map.content_type } : nil
+  end
 end
