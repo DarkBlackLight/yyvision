@@ -76,11 +76,15 @@ class Portrait < ApplicationRecord
   end
 
   def broadcast
-    ActionCable.server.broadcast("portraits", self.as_json(only: [:id, :source_type, :target_confidence, :created_at],
-                                                           methods: [:img_data],
-                                                           include: [target: { only: [],
-                                                                               include: [source: { only: [:name],
-                                                                                                   include: { portraits: { only: [], methods: [:img_data] } } }] }]))
+    if self.source_type == 'CameraCapture'
+      ActionCable.server.broadcast("portraits", self.as_json(only: [:id, :source_type, :target_confidence, :created_at],
+                                                             methods: [:img_data],
+                                                             include: [
+                                                               source: { only: [:id], include: { camera: { only: [:id, :name] } } },
+                                                               target: { only: [],
+                                                                         include: [source: { only: [:name],
+                                                                                             include: { portraits: { only: [], methods: [:img_data] } } }] }]))
+    end
   end
 
   def img_data
