@@ -10,7 +10,7 @@ class Camera < ApplicationRecord
 
   after_create :create_event_cameras
 
-  after_create :setup_location
+  after_commit :setup_location
   after_destroy :setup_location
 
   # validates :rtsp, uniqueness: true
@@ -35,8 +35,7 @@ class Camera < ApplicationRecord
   end
 
   def setup_location
-    location.physical = true
-    location.save!
+    location.update_column(:physical, true)
   end
 
 end
