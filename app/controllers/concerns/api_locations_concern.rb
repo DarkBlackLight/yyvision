@@ -4,7 +4,7 @@ module ApiLocationsConcern
     private
 
     def filter_params
-      params.slice(:query_physical)
+      params.slice(:query_physical, :query_location_level_name)
     end
 
     def index_json(resources)

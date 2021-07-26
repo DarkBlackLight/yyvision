@@ -1,7 +1,7 @@
 class Camera < ApplicationRecord
 
   has_many :event_cameras, dependent: :destroy
-  has_many :camera_captures, dependent: :destroy
+  has_many :camera_captures
   belongs_to :location
 
   belongs_to :master_camera_capture, class_name: "CameraCapture", optional: true
