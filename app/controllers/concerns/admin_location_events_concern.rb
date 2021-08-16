@@ -13,7 +13,7 @@ module AdminLocationEventsConcern
     end
 
     def resource_params
-      params.require(:location_event).permit(:active)
+      params.require(:location_event).permit(:active, :location_event, :event_id, :active_at, :length, :problem_id, :video_url, :master_camera_capture_id)
     end
 
   end

@@ -8,7 +8,7 @@ module ApiAdminsConcern
     end
 
     def resource_params
-      params.require(:admin).permit(:name)
+      params.require(:admin).permit(:name, :role, :full_name)
     end
 
   end
