@@ -24,6 +24,7 @@ class LocationEvent < ApplicationRecord
   scope :query_location_id_4, -> (q) { where(location_id: Location.find(q).subtree_ids) }
 
   def setup_length
+    self.length = 1
     # self.length = (self.active_at - self.created_at) / 1.minutes if self.active_at
   end
 
