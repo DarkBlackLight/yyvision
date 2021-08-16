@@ -37,7 +37,7 @@ class LocationEvent < ApplicationRecord
 
       self.problem = Problem.where(problem_category_id: self.event.problem_category_id,
                                    location: dest_location ? dest_location : self.location)
-                            .query_from_date((self.created_at - self.event.interval.minutes).strftime('%F %T')).first
+                            .query_from_date((self.created_at + self.event.interval.minutes).strftime('%F %T')).first
 
       self.problem = Problem.create(location: dest_location ? dest_location : self.location,
                                     problem_category_id: self.event.problem_category_id,
