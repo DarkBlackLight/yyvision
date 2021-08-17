@@ -19,6 +19,8 @@ class CameraCapture < ApplicationRecord
 
   after_create_commit :broadcast
 
+  scope :query_location_id, -> (q) { joins(:location).where(:'location_id' => q) }
+
   def setup_location
     self.location_id = self.camera.location_id unless self.location_id
   end
