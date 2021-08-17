@@ -20,6 +20,13 @@ class CameraCapture < ApplicationRecord
   after_create_commit :broadcast
 
   scope :query_location_id, -> (q) { joins(:location).where(:'location_id' => q) }
+  scope :query_from_date, -> (q) { where(issued_at: Time.zone.parse(q)..) }
+  scope :query_to_date, -> (q) { where(issued_at: ..Time.zone.parse(q)) }
+  scope :query_location_id_0, -> (q) { where(location_id: Location.find(q).subtree_ids) }
+  scope :query_location_id_1, -> (q) { where(location_id: Location.find(q).subtree_ids) }
+  scope :query_location_id_2, -> (q) { where(location_id: Location.find(q).subtree_ids) }
+  scope :query_location_id_3, -> (q) { where(location_id: Location.find(q).subtree_ids) }
+  scope :query_location_id_4, -> (q) { where(location_id: Location.find(q).subtree_ids) }
 
   def setup_location
     self.location_id = self.camera.location_id unless self.location_id
