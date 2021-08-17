@@ -3,7 +3,9 @@ module AdminCameraCapturesConcern
   included do
 
     def history
-      @resources = CameraCapture.page(params[:page]).per(10)
+      @resources = CameraCapture.accessible_by(current_ability, :read).filterable(params.slice(
+        :query_location_id, :query_location_id_0, :query_location_id_1, :query_location_id_2, :query_location_id_3, :query_location_id_4,:query_created_at_from, :query_created_at_to))
+                                .order(created_at: :desc).page(params[:page]).per(10)
     end
 
 
