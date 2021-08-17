@@ -1,6 +1,12 @@
 module AdminCameraCapturesConcern
   extend ActiveSupport::Concern
   included do
+
+    def history
+      @resources = CameraCapture.page(params[:page]).per(10)
+    end
+
+
     private
 
     def filter_params
