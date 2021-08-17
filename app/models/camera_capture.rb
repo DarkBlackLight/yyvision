@@ -25,6 +25,8 @@ class CameraCapture < ApplicationRecord
   scope :query_location_id_2, -> (q) { where(location_id: Location.find(q).subtree_ids) }
   scope :query_location_id_3, -> (q) { where(location_id: Location.find(q).subtree_ids) }
   scope :query_location_id_4, -> (q) { where(location_id: Location.find(q).subtree_ids) }
+  scope :query_from_date, -> (q) { where(created_at: Time.zone.parse(q)..) }
+  scope :query_to_date, -> (q) { where(created_at: ..Time.zone.parse(q)) }
 
   def setup_location
     self.location_id = self.camera.location_id unless self.location_id

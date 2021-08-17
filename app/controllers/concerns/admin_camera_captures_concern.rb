@@ -4,7 +4,7 @@ module AdminCameraCapturesConcern
 
     def history
       @resources = CameraCapture.accessible_by(current_ability, :read).filterable(params.slice(
-        :query_location_id, :query_location_id_0, :query_location_id_1, :query_location_id_2, :query_location_id_3, :query_location_id_4,:query_created_at_from, :query_created_at_to))
+        :query_location_id, :query_location_id_0, :query_location_id_1, :query_location_id_2, :query_location_id_3, :query_location_id_4,:query_from_date, :query_to_date))
                                 .order(created_at: :desc).page(params[:page]).per(10)
     end
 
@@ -12,7 +12,7 @@ module AdminCameraCapturesConcern
     private
 
     def filter_params
-      params.slice(:query_location_id, :query_location_id_0, :query_location_id_1, :query_location_id_2, :query_location_id_3, :query_location_id_4,:query_created_at_from, :query_created_at_to)
+      params.slice(:query_location_id, :query_location_id_0, :query_location_id_1, :query_location_id_2, :query_location_id_3, :query_location_id_4,:query_from_date, :query_to_date)
     end
 
 
