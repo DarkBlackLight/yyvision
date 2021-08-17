@@ -8,7 +8,7 @@ module AdminCameraCapturesConcern
     end
 
     def resource_params
-      params.require(:camera_capture).permit(:location_id, :camera_id, :engine_id, :img, :img_url, :bodies_count, :portraits_count)
+      params.require(:camera_capture).permit(:location_id, :camera_id, :engine_id, :img, :img_url, :bodies_count, :portraits_count, :created_at)
     end
 
   end
