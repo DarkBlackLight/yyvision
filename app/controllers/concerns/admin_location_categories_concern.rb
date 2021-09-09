@@ -1,6 +1,13 @@
 module AdminLocationCategoriesConcern
   extend ActiveSupport::Concern
   included do
+
+    def tree
+      @resource = @model.find(params[:id])
+      @resources = @resource.children
+      render 'admin/location_categories/tree', layout: false
+    end
+
     private
 
     def filter_params
