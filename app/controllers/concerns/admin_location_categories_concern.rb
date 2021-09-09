@@ -12,6 +12,11 @@ module AdminLocationCategoriesConcern
       render 'admin/location_categories/tree', layout: false
     end
 
+    def edit_modal
+      @resource = @model.find(params[:id])
+      render 'admin/location_categories/edit_modal', layout: false
+    end
+
     private
 
     def filter_params
