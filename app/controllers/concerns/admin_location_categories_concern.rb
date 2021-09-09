@@ -3,8 +3,12 @@ module AdminLocationCategoriesConcern
   included do
 
     def tree
-      @resource = @model.find(params[:id])
-      @resources = @resource.children
+      @resources = @model.where(ancestry: nil)
+      if params[:category_id] == '0'
+        @resources = @model.where(ancestry: nil)
+      else
+        @resources = @model.find(params[:category_id]).children
+      end
       render 'admin/location_categories/tree', layout: false
     end
 
